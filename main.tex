@@ -349,7 +349,7 @@ To address this issue Starburst uses Random Sample Consensus (RANSAC) paradigm f
 
 The output of the two stage feature detection process may result in very few outliers in some cases, while in other cases outlier prevail. Using the RANSAC technique increase the ability of the system to do robust estimation of the model (ellipse) parameters. The following procedure is repeated $R$ times. First, five samples are randomly drawn from the set of feature set obtained by the previous module.  Singular Value Decomposition (SVD) on the conic constraint matrix generated with normalized feature-point coordinates \cite{multipleViewGeom} is used to find the parameters of the ellipse that perfectly fit these five points. Then, the number of candidate feature points in the data set that agree with this model (i.e. the inliers) are counted. Inliers are those sample points for which the algebraic distance to the ellipse is less than some threshold $t$. \bigskip
 
-Our implementation of this stage differs a bit from the implementation of the original Starburst. We draw 5 samples from the detected feature set, then we compute the best fit ellipse using Fitzgibbon's algorithm \cite{fitzgibbon96} which is implemented on OpenCV. Finally we evaluate the error between the estimated model and all feature points and count inlier/outliers. Algorithm \ref{our_ransac_outline} summarizes how we use RANSAC in our system. \bigskip
+Our implementation of this stage differs a bit from the implementation of the original Starburst. We draw 5 samples from the detected feature set, then we compute the best fit ellipse using Fitzgibbon's algorithm \cite{fitzgibbon96} which is implemented in OpenCV. Finally we evaluate the error between the estimated model and all feature points and count inliers/outliers. Algorithm \ref{our_ransac_outline} summarizes how we use RANSAC in our system. \bigskip
 
 \begin{algorithm}
 \begin{dBox}
@@ -394,6 +394,14 @@ Once this mapping is determined the user’s point of gaze in the scene for any 
 as $\vec{s} = H \vec{e}$.
 
 
+\chapterimage{eyes_women_cropped.jpg}
+\chapter{MIRT Morphological Based Iris Tracking Algorithm}
+In this chapter we present a novel method for real-time iris detection and tracking MIRT. MIRT is morphological based real-time iris detection algorithm. Morphological operations are simple and fast to compute which reduces the time required to detect the iris.
+
+\section{Overview}\index{Overview}
+MIRT algorithm is composed of 2 stages; 1) location region of interest in the given image, and 2) detecting the iris in the region of interest located in stage 1. 
+
+
 %----------------------------------------------------------------------------------------
 %	CHAPTER 3 // Pupil Eye Tracking Algrithm
 %----------------------------------------------------------------------------------------
@@ -402,12 +410,11 @@ as $\vec{s} = H \vec{e}$.
 As proposed in the previous chapters that we rely on Starburst Algorithm to get the center of the pupil. But we found that Starburst is not robust and accurate, so we will use Pupil Algorithm to enhance eye-tracking module. Through this chapter we will go through the details of our eye-tracking module by using Pupil Algorithm.
 
 \section{Pupil}\index{Pupil}
-In the second version of our eye-tracking module we went for implementing the Pupil Algorithm \cite{pupil}. Pupil eye-tracking algorithm is an accessible, affordable and extensible tool for pervasive eye tracking research. This chapter we will explain the design motivation of the algorithm, provide an in depth technical description of software. We will use a wearable mobile eye tracking headset with one 
-scene camera and one infra-red (IR) spectrum eye camera for dark pupil detection. Both cameras connect to a laptop, desktop, or mobile computer platform via high speed USB 2.0. The camera video streams are read for real-time pupil detection, gaze mapping and recording.  
+In the second version of our eye-tracking module we went for implementing the Pupil Algorithm \cite{pupil}. Pupil eye-tracking algorithm is an accessible, affordable and extensible tool for pervasive eye tracking research. This chapter we will explain the design motivation of the algorithm, provide an in depth technical description of software. We will use a wearable mobile eye tracking headset with one scene camera and one infra-red (IR) spectrum eye camera for dark pupil detection. Both cameras connect to a laptop, desktop, or mobile computer platform via high speed USB 2.0. The camera video streams are read for real-time pupil detection, gaze mapping and recording.  
 
 
 \section{System Design Objectives}\index{Pupil}
-	Pupil leverages the rapid development cycle and scaling effects of consumer electronics, USB cameras and consumer computing hardware, instead of using custom cameras and computing solutions. \bigskip
+Pupil leverages the rapid development cycle and scaling effects of consumer electronics, USB cameras and consumer computing hardware, instead of using custom cameras and computing solutions. \bigskip
 
 Pupil algorithm is open source and strives to build and support a community of eye tracking researchers and developers.
 
@@ -422,8 +429,8 @@ We use a small and lightweight eye camera to reduce the amount of visual obstruc
 \bigskip
  Pupil uses the "dark pupil" detection method. This Requires the eye camera to capture video within a specific range of the IR spectrum. 
  
- \subsection{Scene Camera} \index{Eye Camera}
-  The scene camera is mounted above the user’s eye aligning the scene camera optics with the user’s eye along a sagittal plane. The scene camera faces outwards to capture a video stream of a portion of the users FOV at 30Hz. The scene camera lens has a 90 degree diagonal FOV. The scene camera is not only high resolution (max resolution 1920x1080 pixels), but also uses a high quality image sensor. This is very
+\subsection{Scene Camera} \index{Eye Camera}
+The scene camera is mounted above the user’s eye aligning the scene camera optics with the user’s eye along a sagittal plane. The scene camera faces outwards to capture a video stream of a portion of the users FOV at 30Hz. The scene camera lens has a 90 degree diagonal FOV. The scene camera is not only high resolution (max resolution 1920x1080 pixels), but also uses a high quality image sensor. This is very 
 advantageous for further computer vision and related tasks
 performed in software.
 
