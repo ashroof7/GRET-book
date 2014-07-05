@@ -480,11 +480,44 @@ The results are evaluated based on the ellipse fit of the supporting edges and t
 Figure \ref{fig:Pupil_Performance} shows a performance comparison between Pupil’s pupil detection algorithm, the stock algorithm proposed by Swirski et al., the ITU gaze tracker and Starburst on the benchmark dataset by Swirski et al. \cite{DataSet}. As error measure we used the Hausdorff distance between the detected and hand-labeled pupil ellipses. We additionally conducted a test excluding the dataset p1-right, that contains eye images recorded at the most extreme angles.
 As can be seen from the Figure, Pupil without p1-right compares favourably to all other approaches. With an error threshold of 2 pixels Pupil achieves a detection rate of 80\%; at 5 pixels error detection rate increases to 90\%
 
+\begin{figure*}[]
+\begin{dBox}
+\centering
+  \mbox{
+	      \subfigure[Initial Estimation of Pupil Region]{
+            \label{fig:Pupil Region}
+            \includegraphics[width=.80\textwidth]{./Pictures/initial_estimation_of_pupil.png}
+        }
+   }
+   \caption{ User region of interest (white stroke rectangle), and initial estimation of pupil region (white square and dashed line square.)
+ \label{fig:Pupil Region} }   
+\end{dBox}   
+\end{figure*}
+
+
+\begin{figure*}[]
+\begin{dBox}
+\centering
+  \mbox{
+	      \subfigure[Estimation of Pupil Region]{
+            \label{fig:Estimation_Of_Pupil_Region}
+            \includegraphics[width=.80\textwidth]{./Pictures/estimation_pupil_region.png}
+        }
+   }
+   \caption{ To find the approximate pupil region, the eye image is convolved with a Haar-like centre surround feature of radius r. The pupil region is centred on the location of the maximal response over all pixels and radii
+ \label{fig:Estimation pupil region 2} }   
+\end{dBox}   
+\end{figure*}
 
 
 
 
+\subsection{Initial Estimation Of Pupil} \index{Pupil Detection Algorithm}
+Our initial region estimation assumes that the pupil region, either the dark pupil itself or the combination of pupil and iris, can roughly be described as a “ dark blob surrounded by a light background ”, and is the strongest such feature in the image. To find the pupil, we use a Haar-like feature detector, similar to the features used in cascade classifiers [Viola and Jones 2001]. \bigskip
 
+The core idea of the feature detector can be explained in terms of convolution. To find possible pupil regions, we convolve the image with a Haar-like centre-surround feature of a given radius \ref{fig: Estimation pupil region 2 } . We repeat this for a set of possible radii, between a user specified minimum and maximum, and find the strongest response over the 3D space of (x, y) and radii. The (x, y) location of this strongest response is assumed to be the centre of the pupil region, with the size of the region determined by the corresponding radius. \bigskip
+
+Although such a convolution is a slow operation if performed naively, we optimise this by first calculating the integral image [Viola and Jones 2001]. Using this integral image, we can find the response of a pixel to a Haar-like feature in constant time, only needing to sample 8 pixel values, one for each corner of the two squares, thereby making this step linear in the number of pixels and possible radii.
 
 
 
