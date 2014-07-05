@@ -395,6 +395,108 @@ as $\vec{s} = H \vec{e}$.
 
 
 %----------------------------------------------------------------------------------------
+%	CHAPTER 3 // Pupil Eye Tracking Algrithm
+%----------------------------------------------------------------------------------------
+\chapterimage{Pupil_Chapter_photo4.jpg}
+\chapter{Pupil Eye Tracking Algorithm}
+As proposed in the previous chapters that we rely on Starburst Algorithm to get the center of the pupil. But we found that Starburst is not robust and accurate, so we will use Pupil Algorithm to enhance eye-tracking module. Through this chapter we will go through the details of our eye-tracking module by using Pupil Algorithm.
+
+\section{Pupil}\index{Pupil}
+In the second version of our eye-tracking module we went for implementing the Pupil Algorithm \cite{pupil}. Pupil eye-tracking algorithm is an accessible, affordable and extensible tool for pervasive eye tracking research. This chapter we will explain the design motivation of the algorithm, provide an in depth technical description of software. We will use a wearable mobile eye tracking headset with one 
+scene camera and one infra-red (IR) spectrum eye camera for dark pupil detection. Both cameras connect to a laptop, desktop, or mobile computer platform via high speed USB 2.0. The camera video streams are read for real-time pupil detection, gaze mapping and recording.  
+
+
+\section{System Design Objectives}\index{Pupil}
+	Pupil leverages the rapid development cycle and scaling effects of consumer electronics, USB cameras and consumer computing hardware, instead of using custom cameras and computing solutions. \bigskip
+
+Pupil algorithm is open source and strives to build and support a community of eye tracking researchers and developers.
+
+\section{Cameras} \index{Cameras}
+The scene camera mount and eye camera mount interface geometries are open source. By releasing the mount geometry we automatically document the interface, allowing users to develop their own mounts for cameras of their choice. \bigskip
+
+Pupil uses USB interface digital cameras that comply with the UVC (USB Video Class) standard. The Pupil headset can be used with other software that supports the UVC interface. Pupil can be easily extended to use two eye cameras for binocular set-ups and more scene cameras as desired. 
+
+\subsection{Eye Camera} \index{Eye Camera}
+We use a small and lightweight eye camera to reduce the amount of visual obstruction for the user and keep the headset lightweight. The eye camera can capture at a maximum resolution of 800x600 pixels at 30 Hz. Using an IR mirror ("hot mirror") was considered as  strategy to further reduce visual obstruction. 
+
+\bigskip
+ Pupil uses the "dark pupil" detection method. This Requires the eye camera to capture video within a specific range of the IR spectrum. 
+ 
+ \subsection{Scene Camera} \index{Eye Camera}
+  The scene camera is mounted above the user’s eye aligning the scene camera optics with the user’s eye along a sagittal plane. The scene camera faces outwards to capture a video stream of a portion of the users FOV at 30Hz. The scene camera lens has a 90 degree diagonal FOV. The scene camera is not only high resolution (max resolution 1920x1080 pixels), but also uses a high quality image sensor. This is very
+advantageous for further computer vision and related tasks
+performed in software.
+
+
+\section{Computing Device} \index{Computing Device}
+The Pupil eye tracking algorithm works in conjunction with standard multi-purpose computers: laptop, desktop, or tablet. Designing for user supplied recording and processing hardware introduces a source for compatibility issues and requires more set-up effort for both users and developers. However, enabling the user to pair the headset with their own computing platform makes Pupil a multi-purpose eye tracking and analysis tool. Pupil is deployable for lightweight mobile use as well as more specialized applications like: streaming over networks, geotagging, multi-user synchronization; and computationally intensive applications like real time 3D reconstruction and localization.
+
+\section{Pupil Detection Algorithm} \index{Pupil Detection Algorithm}
+The pupil detection algorithm locates the dark pupil in the IR illuminated eye camera image. The algorithm does not depend on the corneal reflection, and works with users who wear contact lenses and eyeglasses. \bigskip
+
+The pupil detection algorithm is under constant improvement based on feedback collected through user submitted eye camera videos. Here we provide a description of default pupil detection algorithm.
+\bigskip
+
+\subsection{overview} \index{Pupil Detection Algorithm}
+The eye camera image is converted to gray-scale. The initial region estimation of the pupil is found via the strongest response for a center-surround feature as proposed by Swirski et al. \cite{Swirski} within the image. \newline  %TODO please indicate the overview with figures.
+
+Detect edges using Canny \cite{Canny} to find contours in eye image. Filter edges based on neighbouring pixel intensity. Look for darker areas (blue region). Dark is specified using a user set offset of the lowest spike in the histogram of pixel intensities in the eye image. \\*
+
+Filter remaining edges to exclude those stemming from spectral reflections. Remaining edges are extracted into into contours using connected components \cite{Suzuki}. Contours are filtered and split into sub-contours based on criteria of curvature continuity. \\*
+
+Candidate pupil ellipses are formed using ellipse fitting \cite{Fitzgibbon} onto a subset of the contours looking for good fits in a least square sense, major radii within a user defined range, and a few additional criteria. \\* 
+
+The results are evaluated based on the ellipse fit of the supporting edges and the ratio of supporting edge length and ellipse circumference (using Ramanujans second approximation \cite{Ramanujans} ). We call this ratio "confidence". If the best results confidence is above a threshold the algorithm reports this candidate ellipse as the ellipse defining the contour of the pupil. Otherwise the algorithm reports that no pupil was found.\\*
+
+\begin{figure*}[]
+\begin{dBox}
+\centering
+  \mbox{
+	    \subfigure[Algorithm Overview]{
+            \label{fig:overview}
+            \includegraphics[width=1.0\textwidth]{./Pictures/Visulaization_of_Pupil_algo.png}
+        }
+   }
+   \caption{Vizualization of pupil detection algorithm. 1) Eye image converted to gray scale, user region of interest (white stroke rectangle), and initial estimation of pupil region (white square and dashed line square.) 2) Canny edge detection (green lines). 3) Define "dark" region as offset from lowest spike in histogram within eye image. 4) Filter edges to exclude spectral reflections(yellow) and not inside "dark" areas (blue). 5) Remaining edges extracted into contours using connected components and split into sub-contours based on curvature criteria (multi colored lines). 6) Candidate pupil ellipses (blue) are formed using ellipse fitting. 7) Final Ellipse fit found through an augmented combinatorial search( finally ellipse with center in red)-supporting edge pixels drawn in white.
+ \label{fig:Pupil_Performance} }   
+\end{dBox}   
+\end{figure*}
+
+
+\begin{figure*}[]
+\begin{dBox}
+\centering
+  \mbox{
+	      \subfigure[Comparison]{
+            \label{fig:Comparison}
+            \includegraphics[width=.80\textwidth]{./Pictures/comparison.png}
+        }
+   }
+   \caption{Comparison of pupil detection rate for Pupil’s algorithm, the stock algorithm proposed by 					Swirski et al., the ITU gaze tracker and Starburst.
+ \label{fig:Pupil_Performance} }   
+\end{dBox}   
+\end{figure*}
+
+Figure \ref{fig:Pupil_Performance} shows a performance comparison between Pupil’s pupil detection algorithm, the stock algorithm proposed by Swirski et al., the ITU gaze tracker and Starburst on the benchmark dataset by Swirski et al. \cite{DataSet}. As error measure we used the Hausdorff distance between the detected and hand-labeled pupil ellipses. We additionally conducted a test excluding the dataset p1-right, that contains eye images recorded at the most extreme angles.
+As can be seen from the Figure, Pupil without p1-right compares favourably to all other approaches. With an error threshold of 2 pixels Pupil achieves a detection rate of 80\%; at 5 pixels error detection rate increases to 90\%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
