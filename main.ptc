@@ -61,7 +61,15 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.5.1}overview}{21}{subsection.4.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.5.2}Initial Estimation Of Pupil}{21}{subsection.4.5.2}
+\contentsline {subsection}{\numberline {4.5.2}Integral Image}{21}{subsection.4.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\leavevmode {\color {ocre}Index}}{27}{section*.5}
+\contentsline {subsection}{\numberline {4.5.3}Initial Estimation Of Pupil}{24}{subsection.4.5.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.5.4}Getting Dark Region(Pupil Region)}{25}{subsection.4.5.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.5.5}Excluding Spectral Reflection}{27}{subsection.4.5.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.5.6}Extracting Contours}{28}{subsection.4.5.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.5.7}Ellipse Fitting}{28}{subsection.4.5.7}
 \contentsfinish 
