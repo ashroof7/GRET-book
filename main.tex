@@ -693,10 +693,24 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 	Candidate pupil ellipses are formed using ellipse fitting onto a subset of the contours looking for good fits in a least square sense, major radii within a user defined range and a few additional criteria. An augmented combinatorial search looks for contours that can be added as support to the candidate ellipses. The results are evaluated based on the ellipse fit of the supporting edges and the ratio of supporting edge length and ellipse circumference. We call this ratio “ confidence ”. If the best results confidence is above a threshold the algorithm reports this candidate ellipse as the ellipse defining the contour of the pupil as shown in Figure \ref{fig:EllipseFit}. Otherwise the algorithm reports that no pupil was found. \bigskip
 	
 	
- 
-	 
+\section{Performance Evaluation} \index{Performance Evaluation}
+	We have used Data Set of Computer Laboratory, University of Cambridge, United Kingdom which is used at Robust real-time pupil tracking in highly off-axis images to test performance. \cite{swirski} \\
+	These Data Set contains video frames as individual images, and a text file describing the pupil ellipse in selected frames. The format of each line in text file is $<$frame \#$>$ $| <x> <y> <a> <b> < \theta >$, such that $ x , y$ represents the pupil center in frame\# , $ a, b$ represents the ellipse major radius and minor radius  values and $\theta$ represents angle between the major axis and the x-axis in radians. Total number of frames is 940 frame. \\
+	Finally after Testing our implementation on this Data Set, we have make a comparison between our results and the original pupil center location. So we found the Average error = 1.545478. You Can see the 	Error graph in Figure \ref{fig:ErrorGraph}.
+		
 
-
+\begin{figure*}[]
+\begin{dBox}
+\centering
+  \mbox{
+	    \subfigure[]{
+	          \includegraphics[width=.80\textwidth]{./Pictures/ErrorGraph.png}
+        }
+   }
+   \caption{Error graph for Pupil algorithm performance test
+   \label{fig:ErrorGraph} }   
+\end{dBox}   
+\end{figure*}
 
 
 
