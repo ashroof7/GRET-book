@@ -26,3 +26,4 @@
 *.run.xml
 *.bcf
 *.mdf
+/.project
