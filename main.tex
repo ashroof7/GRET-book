@@ -408,10 +408,10 @@ MIRT algorithm is composed of 2 stages; 1) location region of interest in the gi
 %----------------------------------------------------------------------------------------
 \chapterimage{Pupil_Chapter_photo4.jpg}
 \chapter{Pupil Eye Tracking Algorithm}
-As proposed in the previous chapters that we rely on Starburst Algorithm to get the center of the pupil. But we found that Starburst is not robust and accurate, so we will use Pupil Algorithm to enhance eye-tracking module. Through this chapter we will go through the details of our eye-tracking module by using Pupil Algorithm.
+As proposed in the previous chapters that we rely on Starburst \cite{starburst} Algorithm to get the center of the pupil. But we found that Starburst is not robust and accurate, so we will use Pupil Algorithm to enhance eye-tracking module. Through this chapter we will go through the details of our eye-tracking module by using Pupil Algorithm.
 
 \section{Pupil}\index{Pupil}
-In the second version of our eye-tracking module we went for implementing the Pupil Algorithm \cite{pupil}. Pupil eye-tracking algorithm is an accessible, affordable and extensible tool for pervasive eye tracking research. This chapter we will explain the design motivation of the algorithm, provide an in depth technical description of software. We will use a wearable mobile eye tracking headset with one 
+In the second version of our eye-tracking module we went for implementing the Pupil Algorithm \cite{pupil}. Pupil eye-tracking algorithm is an accessible, affordable and extensible tool for pervasive eye tracking research. This chapter we will explain the design motivation of the algorithm, provide an in depth technical description of algorithm. We will use a wearable mobile eye tracking headset with one 
 scene camera and one infra-red (IR) spectrum eye camera for dark pupil detection. Both cameras connect to a laptop, desktop, or mobile computer platform via high speed USB 2.0. The camera video streams are read for real-time pupil detection, gaze mapping and recording.  
 
 
@@ -447,15 +447,15 @@ The pupil detection algorithm is under constant improvement based on feedback co
 \bigskip
 
 \subsection{overview} \index{Pupil Detection Algorithm}
-The eye camera image is converted to gray-scale. The initial region estimation of the pupil is found via the strongest response for a center-surround feature as proposed by Swirski et al. \cite{Swirski} within the image. \newline  
+The eye camera image is converted to gray-scale. The initial region estimation of the pupil is found via the strongest response for a center-surround feature as proposed by Swirski et al. \cite{swirski} within the image. \newline  
 
-Detect edges using Canny \cite{Canny} to find contours in eye image. Filter edges based on neighbouring pixel intensity. Look for darker areas (blue region). Dark is specified using a user set offset of the lowest spike in the histogram of pixel intensities in the eye image. \\*
+Detect edges using Canny \cite{canny} to find contours in eye image. Filter edges based on neighbouring pixel intensity. Look for darker areas (blue region). Dark is specified using a user set offset of the lowest spike in the histogram of pixel intensities in the eye image. \\*
 
-Filter remaining edges to exclude those stemming from spectral reflections. Remaining edges are extracted into into contours using connected components \cite{Suzuki}. Contours are filtered and split into sub-contours based on criteria of curvature continuity. \\*
+Filter remaining edges to exclude those stemming from spectral reflections. Remaining edges are extracted into into contours using connected components \cite{suzuki}. Contours are filtered and split into sub-contours based on criteria of curvature continuity. \\*
 
-Candidate pupil ellipses are formed using ellipse fitting \cite{Fitzgibbon} onto a subset of the contours looking for good fits in a least square sense, major radii within a user defined range, and a few additional criteria. \\* 
+Candidate pupil ellipses are formed using ellipse fitting \cite{fitzgibbon96} onto a subset of the contours looking for good fits in a least square sense, major radii within a user defined range, and a few additional criteria. \\* 
 
-The results are evaluated based on the ellipse fit of the supporting edges and the ratio of supporting edge length and ellipse circumference (using Ramanujans second approximation \cite{Ramanujans} ). We call this ratio "confidence". If the best results confidence is above a threshold the algorithm reports this candidate ellipse as the ellipse defining the contour of the pupil. Otherwise the algorithm reports that no pupil was found.\\*
+The results are evaluated based on the ellipse fit of the supporting edges and the ratio of supporting edge length and ellipse circumference (using Ramanujans second approximation \cite{hardy1962collected} ). We call this ratio "confidence". If the best results confidence is above a threshold the algorithm reports this candidate ellipse as the ellipse defining the contour of the pupil. Otherwise the algorithm reports that no pupil was found.\\*
 
 \begin{figure*}[]
 \begin{dBox}
@@ -481,12 +481,12 @@ The results are evaluated based on the ellipse fit of the supporting edges and t
             \includegraphics[width=.80\textwidth]{./Pictures/comparison.png}
         }
    }
-   \caption{Comparison of pupil detection rate for Pupil’s algorithm, the stock algorithm proposed by 					Swirski et al., the ITU gaze tracker and Starburst.
+   \caption{Comparison of pupil detection rate for Pupil’s algorithm, the stock algorithm proposed by Swirski et al., the ITU gaze tracker and Starburst.
  \label{fig:Pupil_Performance} }   
 \end{dBox}   
 \end{figure*}
 
-Figure \ref{fig:Pupil_Performance} shows a performance comparison between Pupil’s pupil detection algorithm, the stock algorithm proposed by Swirski et al., the ITU gaze tracker and Starburst on the benchmark dataset by Swirski et al. \cite{DataSet}. As error measure we used the Hausdorff distance between the detected and hand-labeled pupil ellipses. We additionally conducted a test excluding the dataset p1-right, that contains eye images recorded at the most extreme angles.
+Figure \ref{fig:Pupil_Performance} shows a performance comparison between Pupil’s pupil detection algorithm, the stock algorithm proposed by Swirski et al., the ITU gaze tracker and Starburst on the benchmark dataset by Swirski et al. \cite{swirski}. As error measure we used the Hausdorff distance between the detected and hand-labeled pupil ellipses \cite{swirski}. We additionally conducted a test excluding the dataset p1-right, that contains eye images recorded at the most extreme angles.
 As can be seen from the Figure, Pupil without p1-right compares favourably to all other approaches. With an error threshold of 2 pixels Pupil achieves a detection rate of 80\%; at 5 pixels error detection rate increases to 90\%
 
 \begin{figure*}[]
@@ -550,7 +550,7 @@ where $ii(x,y)$ is the integral image and $i(x,y)$ is the original image. Using 
 
 \end{center}
 (where $ s(x,y) $is the cumulative row sum, $s(x, -1) = 0$, and $ii(-1, y) == 0$) the integral image can be computed in one pass over the original image. \\
-Using the integral image any rectangular sum can be computed in four array references figure \ref{fig:IntegralFig}. Clearly the difference between two rectangular sums can be computed in eight references. Since the two-rectangle features defined above involve adjacent rectangular sums they can be computed in six array references, eight in the case of the three-rectangle features, and nine for four-rectangle features.
+Using the integral image any rectangular sum can be computed in four array references figure \ref{fig:IntegralFig}. Clearly the difference between two rectangular sums can be computed in eight references. Since the two-rectangle features defined above involve adjacent rectangular sums they can be computed in six array references, eight in the case of the three-rectangle features, and nine for four-rectangle features.\cite{ViolaAndJones2001}
 
 \begin{figure*}[]
 \begin{dBox}
@@ -569,11 +569,11 @@ Using the integral image any rectangular sum can be computed in four array refer
 \end{figure*}
 
 \subsection{Initial Estimation Of Pupil} \index{Pupil Detection Algorithm}
-Our initial region estimation assumes that the pupil region, either the dark pupil itself or the combination of pupil and iris, can roughly be described as a “ dark blob surrounded by a light background ”, and is the strongest such feature in the image. To find the pupil, we use a Haar-like feature detector, similar to the features used in cascade classifiers [Viola and Jones 2001]. \bigskip
+Our initial region estimation assumes that the pupil region, either the dark pupil itself or the combination of pupil and iris, can roughly be described as a “ dark blob surrounded by a light background ”, and is the strongest such feature in the image. To find the pupil, we use a Haar-like feature detector, similar to the features used in cascade classifiers \cite{ViolaAndJones2001}. \bigskip
 
 The core idea of the feature detector can be explained in terms of convolution. To find possible pupil regions, we convolve the image with a Haar-like centre-surround feature of a given radius figure \ref{fig:EstimationPupilFig} . We repeat this for a set of possible radii, between a user specified minimum and maximum, and find the strongest response over the 3D space of (x, y) and radii. The (x, y) location of this strongest response is assumed to be the centre of the pupil region, with the size of the region determined by the corresponding radius. \bigskip
 
-Although such a convolution is a slow operation if performed naively, we optimise this by first calculating the integral image [Viola and Jones 2001]. Using this integral image, we can find the response of a pixel to a Haar-like feature in constant time, only needing to sample 8 pixel values, one for each corner of the two squares, thereby making this step linear in the number of pixels and possible radii. \\
+Although such a convolution is a slow operation if performed naively, we optimise this by first calculating the integral image \cite{ViolaAndJones2001}. Using this integral image, we can find the response of a pixel to a Haar-like feature in constant time, only needing to sample 8 pixel values, one for each corner of the two squares, thereby making this step linear in the number of pixels and possible radii. \\
 Input and Output of this module is shown in Figure \ref{fig:Initial_Estimation_Of_Pupil}
 
 \begin{figure*}[]
@@ -669,7 +669,7 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 
 
 \subsection{Extracting Contours} \index{Pupil Detection Algorithm}
-	After getting the minimum edges we can extract Contours by using connected components, and then split the contours into sub-contours based on curvature continuity criteria as shown in Figure \ref{fig:Contours}. \bigskip
+	After getting the minimum edges we can extract Contours by using connected components, and then split the contours into sub-contours based on curvature continuity criteria as shown in Figure \ref{fig:Contours}. \cite{suzuki} \bigskip
 	We have used OpenCV findCountours method to get all the contours from edges and then we get the approximate Poly-lines that each contour forms. So that, we can use each poly-line to get the angle between each subsequent 2 points to make sure that this contour is a good contour and also it helps to split contours into sub-contours based on angles between two subsequent points.  
 
 
@@ -688,7 +688,7 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 
 
 \subsection{Ellipse Fitting} \index{Pupil Detection Algorithm}
-	Finally we should estimate the best ellipse that surrounds the Pupil by fitting an ellipse found through an augmented combinatorial search. \bigskip
+	Finally we should estimate the best ellipse that surrounds the Pupil by fitting an ellipse found through an augmented combinatorial search. \cite{fitzgibbon96} \bigskip
 	
 	Candidate pupil ellipses are formed using ellipse fitting onto a subset of the contours looking for good fits in a least square sense, major radii within a user defined range and a few additional criteria. An augmented combinatorial search looks for contours that can be added as support to the candidate ellipses. The results are evaluated based on the ellipse fit of the supporting edges and the ratio of supporting edge length and ellipse circumference. We call this ratio “ confidence ”. If the best results confidence is above a threshold the algorithm reports this candidate ellipse as the ellipse defining the contour of the pupil as shown in Figure \ref{fig:EllipseFit}. Otherwise the algorithm reports that no pupil was found. \bigskip
 	
