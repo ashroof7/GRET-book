@@ -1495,7 +1495,7 @@ The Whole case and the vote determination is explained by the flow chart in Figu
   \mbox{
       \subfigure[]{
             \label{fig:binary_op}
-            \includegraphics[width=.5\textwidth]{./Pictures/vfc.png}
+            \includegraphics[width=.6\textwidth]{./Pictures/vfc.png}
         }
        
         }
@@ -1667,7 +1667,7 @@ A lot of information can be extracted from time varying sequences of images, oft
 The analysis of visual motion divides into two stages:
 \begin{itemize}
 \item The measurement of the motion, and 
-\item The use of motion data to segment the scene into distinct objects and to extract two-dimensional information about the shape and motion of the objects[link here].
+\item The use of motion data to segment the scene into distinct objects and to extract two-dimensional information about the shape and motion of the objects \cite{dynamic1}.
 \end{itemize}
 \bigskip
 
@@ -1696,7 +1696,7 @@ If we are only dealing with rigid body translations and rotations, then the moti
 
 In the case of pure camera translation, the direction of motion as in Figure \ref{fig:dynamic12} (b) is along the projection ray through that image point from which (or towards which) all motion vectors radiate. The point of divergence (or convergence) of all motion field vectors is called the Focus Of Expansion FOE (or focus of contraction FOC). Thus, in the case of divergence we have forward motion of the camera, and in the case of convergence, backwards motion.\bigskip
 
-If we take the axis of camera translation as the camera baseline in stereo, then every projection of a fixed scene point must translate along an epipolar line, and all such lines converge at the epipole, which is just the FOE[link here].  Therefore, in order to track the motion we firstly need to determine the divergence field of optical flow motion.\bigskip
+If we take the axis of camera translation as the camera baseline in stereo, then every projection of a fixed scene point must translate along an epipolar line, and all such lines converge at the epipole, which is just the FOE \cite{dynamic2}.  Therefore, in order to track the motion we firstly need to determine the divergence field of optical flow motion.\bigskip
 
 
 \subsection{Divergence Field and Optical Flow.}\index{Divergence Field and Optical Flow.}
@@ -1724,7 +1724,8 @@ The following figures present an example of transforming s into a divergence fie
 \begin{itemize}
 \item Figure \ref{fig:dynamic345} (a,b) are Visualization of u and v respectively. 
 
-\item Figure \ref{fig:dynamic345} (c) The corresponding Divergence Field after being normalized to gray-scale[link here].
+\item Figure \ref{fig:dynamic345} (c) The corresponding Divergence Field after being normalized to gray-scale \cite{dynamic3}.
+
 \end{itemize}
 
 
@@ -1778,7 +1779,7 @@ Differentiating this constraint gives the optical flow equation:
 
 Where $V = [u, v]$ is the motion vector and It the time derivative. For individual points in the image, this equation is under-determined and cannot be solved (one equation with two unknowns in v). By enforcing some spatial consistency, it is possible to obtain solutions though. In the Lucas-Kanade algorithm below we will see how that assumption is used.\bigskip
 
-The following figures show optical flow vectors (sampled at every $16^th$ pixel) shown on video of a waving hand[link here]. 
+The following figures show optical flow vectors (sampled at every $16^th$ pixel) shown on video of a waving hand \cite{dynamic4}. 
 
 \begin{figure*}[h]
 \begin{dBox}
@@ -1822,10 +1823,10 @@ The following figures show optical flow vectors (sampled at every $16^th$ pixel)
 \end{dBox}   
 \end{figure*}
 
-\subsection{Lucas Kanade Algorithm[link here]}\index{Divergence Field and Optical Flow.}
-Tracking is the process of following objects through a sequence of images or video. The most basic form of tracking is to follow interest points such as corners. A popular algorithm for this is the Lucas-Kanade tracking algorithm which uses a sparse optical flow algorithm. Lucas-Kanade tracking can be applied to any type of features but usually makes use of corner points similar to the Harris corner points .[link here]\bigskip
+\subsection{Lucas Kanade Algorithm \cite{dynamic4}}\index{Divergence Field and Optical Flow.}
+Tracking is the process of following objects through a sequence of images or video. The most basic form of tracking is to follow interest points such as corners. A popular algorithm for this is the Lucas-Kanade tracking algorithm which uses a sparse optical flow algorithm. Lucas-Kanade tracking can be applied to any type of features but usually makes use of corner points similar to the Harris corner points \cite{dynamic6} .\bigskip
 
-Depending on Harris corner points we find good feature points to track. These points are corners detected according to an algorithm by Shi and Tomasi[link here]  where corners are points with two large eigenvalues of the structure tensor (Harris matrix) and where the smaller eigenvalue is above a threshold.\bigskip
+Depending on Harris corner points we find good feature points to track. These points are corners detected according to an algorithm by Shi and Tomasi \cite{dynamic7}  where corners are points with two large eigenvalues of the structure tensor (Harris matrix) and where the smaller eigenvalue is above a threshold.\bigskip
 
 The optical flow equation is under-determined (meaning that there are too many unknowns per equation) if considered on a per-pixel basis. Using the assumption that neighboring pixels have the same motion it is possible to stack many of these equations into one system of equations\bigskip
 
@@ -1865,7 +1866,19 @@ To decide that the hand has moved, the difference between the new position and t
 
 The following flowchart explains what happens at each feature point, where $I(x,y)$ is the original indices for a feature point and $I'(x',y')$ the new indices in the new image after the movement. \bigskip
 
-Figure missed Here \bigskip
+\begin{figure*}[h]
+\begin{dBox}
+\centering
+  \mbox{
+      \subfigure[]{
+            \label{fig:dynamic_15}
+            \includegraphics[width=.9\textwidth]{./Pictures/dynamic15.png}
+        }
+        
+   }
+   \caption{Flow Chart\label{fig:dynamic15} }   
+\end{dBox}   
+\end{figure*}
 
 Then we check the difference itself if it is indicating that the hand moved if the direction is to the positive side of each axes or differently in the negative one. We have four counters to help in determining the direction. Each counter is increased at each feature point in the direction this point moved to.\bigskip
 
@@ -1880,7 +1893,20 @@ The handling of static gestures can be reactivated once more, if the separator a
 
 
 The following diagram illustrates these transitions:
-Missed Bot Yet
+
+\begin{figure*}[h]
+\begin{dBox}
+\centering
+  \mbox{
+      \subfigure[]{
+            \label{fig:dynamic_16}
+            \includegraphics[width=.8\textwidth]{./Pictures/dynamic16.png}
+        }
+        
+   }
+   \caption{Transition Diagram Between Static and Dynamic Gestures\label{fig:dynamic16} }   
+\end{dBox}   
+\end{figure*}
 
 \section{Limitations and Classification}\index{Limitations and Classification}
 This chapter includes the work done to detect static gestures. It begins by describing the general idea of segmentation and recognition and then proceeds to the following sections.\bigskip
@@ -1968,7 +1994,7 @@ This gesture is represented by the thumb pointing to the left and exposed to the
 Every algorithm from the previous chapter passes a 1-D array to the classifier. This 1-D array is the classifier input. In the following sections, we are going to represent the three classifiers we used, for our work and how they use this 1-D array. \bigskip
 
 \subsubsection{Support Vector Machine}\index{Support Vector Machine}
-SVM method for the classification of both linear and nonlinear data. The algorithm works as follows. It uses a nonlinear mapping to transform the original training data into a higher dimension. Within this new dimension, it searches for the linear optimal separating hyperplane (i.e., a “decision boundary” separating the tuples of one class from another). With an appropriate nonlinear mapping to a sufficiently high dimension, data from two classes can always be separated by a hyperplane. The SVM finds this hyperplane using support vectors (“essential” training tuples) and margins (defined by the support vectors).We will delve more into these new concepts later.
+SVM method for the classification of both linear and nonlinear data \cite{classifications}. The algorithm works as follows. It uses a nonlinear mapping to transform the original training data into a higher dimension. Within this new dimension, it searches for the linear optimal separating hyperplane (i.e., a “decision boundary” separating the tuples of one class from another). With an appropriate nonlinear mapping to a sufficiently high dimension, data from two classes can always be separated by a hyperplane. The SVM finds this hyperplane using support vectors (“essential” training tuples) and margins (defined by the support vectors).We will delve more into these new concepts later.
 
 
 Although the training time of even the fastest SVMs can be extremely slow, they are highly accurate, owing to their ability to model complex nonlinear decision boundaries. They are much less prone to overfitting than other methods. The support vectors found also provide a compact description of the learned model. SVMs can be used for numeric prediction as well as classification. They have been applied to a number of areas, including handwritten digit recognition, object recognition, and speaker identification, as well as benchmark time-series prediction tests.
@@ -2151,7 +2177,67 @@ SVM has the following results on our datasets. For Binary Representation Algorit
 Not Yet \bigskip
 
 \subsubsection{KNN}\index{KNN}
-Not Yet \bigskip
+The k-nearest-neighbor method \cite{classifications} was first described in the early 1950s. The method is labor intensive when given large training sets, and did not gain popularity until the 1960s when increased computing power became available. It has since been widely used in the area of pattern recognition. \bigskip
+
+Nearest-neighbor classifiers are based on learning by analogy, that is, by comparing a given test tuple with training tuples that are similar to it. The training tuples are described by n attributes. Each tuple represents a point in an n-dimensional space. In this way, all the training tuples are stored in an n-dimensional pattern space.When given an unknown tuple, a k-nearest-neighbor classifier searches the pattern space for the k training tuples that are closest to the unknown tuple. These k training tuples are the k “nearest neighbors” of the unknown tuple.
+\bigskip
+
+“Closeness” is defined in terms of a distance metric, such as Euclidean distance. The
+Euclidean distance between two points or tuples, say, $X1 =( x_{11}, x_{12},..., x_{1n})$ and $X2=(x_{21}, x_{22},..., x_{2n})$, is
+
+\begin{dBox}
+\begin{equation}
+dist(x_1, x_2) = \sqrt{\sum_{i=1}^{n}(x_{1i}-x_{2i})^2}
+\end{equation}
+\end{dBox}
+
+
+For k-nearest-neighbor classification, the unknown tuple is assigned the most common class among its k-nearest neighbors. When k = 1, the unknown tuple is assigned the class of the training tuple that is closest to it in pattern space. Nearest-neighbor classifiers can also be used for numeric prediction, that is, to return a real-valued prediction
+for a given unknown tuple. In this case, the classifier returns the average value of the real-valued labels associated with the k-nearest neighbors of the unknown tuple.\bigskip
+
+The previous discussion assumes that the attributes used
+to describe the tuples are all numeric. For nominal attributes, a simple method is to compare the corresponding value of the attribute in tuple X1 with that in tuple X2. If
+the two are identical (tuples X1 and X2 both have the color blue), then the difference between the two is taken as 0. If the two are different ( tuple X1 is blue but tuple X2 is red), then the difference is considered to be 1. Other methods may incorporate more sophisticated schemes for differential grading (where a larger difference score is assigned, say, for blue and white than for blue and black).\bigskip
+
+“How can I determine a good value for k, the number of neighbors?” This can be determined experimentally. Starting with k = 1, we use a test set to estimate the error rate
+of the classifier. This process can be repeated each time by incrementing k to allow for one more neighbor. The k value that gives the minimum error rate may be selected. In
+general, the larger the number of training tuples, the larger the value of k will be (so that classification and numeric prediction decisions can be based on a larger portion of the stored tuples). As the number of training tuples approaches infinity and k = 1, the error rate can be no worse than twice the Bayes error rate (the latter being the theoretical minimum). If k also approaches infinity, the error rate approaches the Bayes error rate.\bigskip
+
+Nearest-neighbor classifiers can be extremely slow when classifying test tuples. If D is a training database of |D| tuples and k = 1, then O(|D|) comparisons are required to
+classify a given test tuple. By presorting and arranging the stored tuples into search trees, the number of comparisons can be reduced to O(log|D|). Parallel implementation can
+reduce the running time to a constant, that is, O(1), which is independent of |D|. Other techniques to speed up classification time include the use of partial distance
+calculations and editing the stored tuples. In the partial distance method, we compute the distance based on a subset of the n attributes. If this distance exceeds a threshold,
+then further computation for the given stored tuple is halted, and the process moves on to the next stored tuple. The editing method removes training tuples that prove useless. This method is also referred to as pruning or condensing because it reduces the total
+number of tuples stored.\bigskip
+
+K-NN has the following results on our datasets. For Binary Representation Algorithm, it gives the best results according to the following results that describe the accuracy of ever static algorithm.\bigskip
+
+\begin{figure*}[h]
+\begin{dBox}
+\centering
+  \mbox{
+      \subfigure[]{
+            \label{fig:r_knn_b}
+            \includegraphics[width=.9\textwidth]{./Pictures/R_K-NN_B.jpg}
+        }
+   }
+   \caption{Binary Based Approach Results Using x-validation with k=10\label{fig:r_knn_b} }   
+\end{dBox}   
+\end{figure*}
+
+\begin{figure*}[h]
+\begin{dBox}
+\centering
+  \mbox{
+      \subfigure[]{
+            \label{fig:r_knn_f}
+            \includegraphics[width=.9\textwidth]{./Pictures/R_K-NN_F.jpg}
+        }
+   }
+   \caption{Feature Based Approach Results Using x-validation with k=10\label{fig:r_knn_f} }   
+\end{dBox}   
+\end{figure*}
+
 
 
 %----------------------------------------------------------------------------------------
