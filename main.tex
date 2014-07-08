@@ -185,7 +185,19 @@ They have developed Pupil, a mobile eye tracking headset and an open source soft
 As proposed in the previous chapters that we rely on 2 different approaches to provide a new user experience; Eye-tracking, and gesture recognition. Through this chapter we will go through the details of our eye-tracking module, what algorithms we used, problems we faced, and workarounds to that problems.
 
 \section{Starburst}\index{Starburst}
-In the first version of our eye-tracking module we went for implementing the Starburst \cite{starburst}.The Starburst eye-tracking algorithm combines feature-based and model-based approaches to achieve a good trade off between run-time performance and accuracy for dark-pupil infrared illumination. The goal of the algorithm is to extract the location of the pupil center and the corneal reflection so as to relate the vector difference between these measures to coordinates in the scene image. The algorithm begins by locating and removing the corneal reflection from the image. Then the pupil edge points are located using an iterative feature-based technique. An ellipse is fitted to a subset of the detected edge points using the Random Sample Consensus (RANSAC) paradigm. The best fitting parameters from this feature-based approach are then used to initialize a local model-based search for the ellipse  parameters that maximize the fit to the image data.
+In the first version of our eye-tracking module we went for implementing the Starburst \cite{starburst}.The Starburst eye-tracking algorithm combines feature-based and model-based approaches to achieve a good trade off between run-time performance and accuracy for dark-pupil infrared illumination. The goal of the algorithm is to extract the location of the pupil center and the corneal reflection so as to relate the vector difference between these measures to coordinates in the scene image. As figure \ref{fig:starburst_overview} shows, the algorithm begins by locating and removing the corneal reflection from the image. Then the pupil edge points are located using an iterative feature-based technique. An ellipse is fitted to a subset of the detected edge points using the Random Sample Consensus (RANSAC) paradigm. The best fitting parameters from this feature-based approach are then used to initialize a local model-based search for the ellipse  parameters that maximize the fit to the image data.
+
+
+\begin{figure*}[h]
+\begin{dBox}
+\centering
+	\mbox{
+		\includegraphics[width=\textwidth]{./Pictures/Starburst_overview.png}
+	}
+   \caption{Overview of MIRT Algorithm \label{fig:starburst_overview} }   
+\end{dBox}   
+\end{figure*}
+
 
 \section{Noise Reduction}\index{Noise Reduction}
 The Starburst algorithms deals with two types of noise that are commonly encountered in any low cost head-mounted eye-tracker. The two types of noise are the shot noise and the line noise. Shot noise is reduced by applying a $5x5$ Gaussian filter with a standard deviation of $2$ pixels. Line noise is reduced by applying a normalization factor is applied line by line shift to shift the mean intensity of the line to the running average derived from previous frames. The following modelling describes the process of line noise reduction as proposed in Startburst \cite{starburst}.
@@ -708,7 +720,7 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 %	CHAPTER 4  MIRT Eye Tracking Algrithm
 %----------------------------------------------------------------------------------------
 \chapterimage{single_eye.jpg}
-\chapter{MIRT}
+\chapter{MIRT} \index{MIRT}
 In this chapter we present MIRT: Morpholgical Based Iris Tracking a novel method for real-time iris detection and tracking. MIRT is a morphological based real-time iris detection algorithm. Morphological operations are simple and fast to compute which reduces the time required to detect the iris. 
 
 Two typed of image processing in eye tracking are used; visible and infrared spectrum imaging. Most available eye tracking approaches like Starburst \cite{starburst} and Pupil \cite{pupil} rely on infrared spectrum imaging. It's known that visible spectrum imaging is more complicated due to the uncontrolled ambient light that is used as a light source which usually contains multiple specular and diffuse components. On the other hand infrared imaging eliminates uncontrolled specular reflection by illuminating the eye with a uniform and controlled infrared light \cite{starburst}. However, infrared imaging requires using special hardware (infrared cameras, infrared lights). MIRT uses visible imaging to track the iris. Not to mention that MIRT can be used outdoors which is not available using infrared based eye-tracking algorithms We also doesn't require any special hardware, we use a low resolution webcam. Used hardware and head-mounted tracker will be discussed later in this book.\bigskip
@@ -728,7 +740,8 @@ MIRT algorithm can be divided into 2 stages; 1) locating region of interest in t
 \end{figure*}
 
 
-\section{Stage 1: ROI Localization}\index{ROI Localization}
+\section{ROI Localization}\index{ROI Localization}
+
 As figure \ref{fig:mirt_overview} illustrates the pipeline of the ROI localization step. We use simple thresholding on the input gray scale image (frame). Then we apply Canny edge detection algorithm \cite{canny} on the binary image. Then we dilate using a small structuring element just to fill the small gaps between edges and make edges wider. This goal from the dilation step is to increase the robustness of contour finding step. We use circular shaped small structuring element with diameter $ d = 3 $ pixels. \bigskip
 
 The next stage is that we find the largest 2 contours that satisfy the size constrain. We defined a size threshold to eliminate the regions that might be mistaken with the sclera. When the iris is in the middle of limbus (corneal limbus is the border of the cornea and the sclera) 2 parts of the sclera are visible as illustrated in figure \ref{fig:roi_2p}. In this case the largest 2 contours will be two parts of the sclera and the iris is estimated to lie between those two parts. The ROI is set to be the bounding box of the two contours, shown in figure \ref{fig:roi_2p}. \bigskip
@@ -878,7 +891,7 @@ The opposite case is that if $r > 1$ then the iris is in the left and the right 
 
 
 
-\section{Stage 2: Locate Iris In ROI} \index{Locate Iris In ROI}
+\section{Locate Iris In ROI} \index{Locate Iris In ROI}
 In this stage we are interested in finding the iris in the tightly cropped ROI located in stage 1. we start by applying inverse simple thresholding to filter dark areas in the ROI. Next we apply morphological closing followed by opening using 19 pixel circular structuring element. The main goal of this step to fill the gaps in the iris (gaps come from light reflections) and to open between the iris and other parts of the ROI that passed through the thresholding step. Then we find the largest contour in the ROI. In almost all cases the largest contour will contain the iris as shown in figure \ref{fig:iris_contour}. Finally we extract feature points from the largest contour. Edge points of the contour are considered as feature points. We use Random Sample Consensus (RANSAC) paradigm for model fitting \cite{ransac}. RANSAC is an effective technique for model fitting in the presence of a large but unknown percentage of outliers in a measurement sample. In our application inliers are feature points that lie on the iris contour, while outliers are feature points that belong to other contours other than the iris contour. Using the RANSAC technique increase the ability of the system to do robust estimation of the model (ellipse) parameters. We draw 5 samples from the detected feature set, then we compute the best fit ellipse using Fitzgibbon’s algorithm \cite{fitzgibbon96} which is implemented in OpenCV. Finally we evaluate the error between the estimated model and all feature points and count inliers/outliers. Algorithms \ref{mirt_iris_algo} and \ref{our_ransac} summarizes stage 2 procedure and how we use RANSAC in our system respectively. Figure \ref{fig:loc_iris} shows the steps of stage 2. 
 
 
@@ -932,7 +945,7 @@ In this stage we are interested in finding the iris in the tightly cropped ROI l
 		\State \Call{opening}{$binary$}
 		\State $largestcontour \gets$ \Call{findContours}{$binary$}
 		\State $ellipse \gets$ \Call{RANSAC\_ellipse\_fitting}{$largestcontour$}
-		\Return $ellipse$
+		\State \Return $ellipse$
 		\EndProcedure	
 	\end{algorithmic}
 \end{dBox}	
