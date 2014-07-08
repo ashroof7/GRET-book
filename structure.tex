@@ -260,6 +260,17 @@ innerbottommargin=5pt]{cBox}
 \node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{R}};\end{tikzpicture}} % Orange R in a circle
 \advance\baselineskip -1pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
 
+
+% modified remark envirnment to mark our implementation section in the book
+\newenvironment{our}{ 
+\begin{list}{}{
+\leftmargin=0pt % Indentation on the left
+\rightmargin=0pt}\item\ignorespaces % Indentation on the right
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{R}};\end{tikzpicture}} % R in a circle
+\advance\baselineskip 0pt}{\end{list}\vskip5pt} % Tighter line spacing and white space after remark
+
+
 %----------------------------------------------------------------------------------------
 %	SECTION NUMBERING IN THE MARGIN
 %----------------------------------------------------------------------------------------

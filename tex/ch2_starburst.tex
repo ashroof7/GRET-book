@@ -5,6 +5,11 @@
 \chapter{Starburst Eye Tracking Algorithm}
 As proposed in the previous chapters that we rely on 2 different approaches to provide a new user experience; Eye-tracking, and gesture recognition. Through this chapter we will go through the details of our eye-tracking module, what algorithms we used, problems we faced, and workarounds to that problems.
 
+\begin{eBox}
+In this chapter we will use the \: \: \begin{tikzpicture}[overlay]
+\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (0pt,3pt){\textcolor{ocre}{R}};\end{tikzpicture}  \: \: mark to indicate parts that describe our implementation and modifications to the original Starburst algorithm.
+\end{eBox}
+
 \section{Starburst}\index{Starburst}
 In the first version of our eye-tracking module we went for implementing the Starburst \cite{starburst}.The Starburst eye-tracking algorithm combines feature-based and model-based approaches to achieve a good trade off between run-time performance and accuracy for dark-pupil infrared illumination. The goal of the algorithm is to extract the location of the pupil center and the corneal reflection so as to relate the vector difference between these measures to coordinates in the scene image. As figure \ref{fig:starburst_overview} shows, the algorithm begins by locating and removing the corneal reflection from the image. Then the pupil edge points are located using an iterative feature-based technique. An ellipse is fitted to a subset of the detected edge points using the Random Sample Consensus (RANSAC) paradigm. The best fitting parameters from this feature-based approach are then used to initialize a local model-based search for the ellipse  parameters that maximize the fit to the image data.
 
@@ -24,14 +29,17 @@ In the first version of our eye-tracking module we went for implementing the Sta
 The Starburst algorithms deals with two types of noise that are commonly encountered in any low cost head-mounted eye-tracker. The two types of noise are the shot noise and the line noise. Shot noise is reduced by applying a $5x5$ Gaussian filter with a standard deviation of $2$ pixels. Line noise is reduced by applying a normalization factor is applied line by line shift to shift the mean intensity of the line to the running average derived from previous frames. The following modelling describes the process of line noise reduction as proposed in Startburst \cite{starburst}.
 
 \begin{dBox}
-\begin{equation}
+\centering
+	\begin{equation}
 	C(i,l) = \beta \bar I  (i,l) + (1 - \beta) C(i-1, l)
-\end{equation}
+	\end{equation}
 \end{dBox}
 
-Where $C(i,l)$ is the normalization factor, $I(i,l)$ is the average line intensity and $B = 0.2$. Keep in consideration that the noise reduction step is optional and can be deactivated if the used camera is capable of capturing less noisy images.
+Where $C(i,l)$ is the normalization factor, $I(i,l)$ is the average line intensity and $B = 0.2$. Keep in consideration that the noise reduction step is optional and can be deactivated if the used camera is capable of capturing less noisy images. \bigskip
 
+\begin{our}
 In our implementation we didn't do any modifications to the noise reduction module. We implemented this module as described in the Starburst algorithm \cite{starburst}. Note that using head-mounted camera in our system doesn't require noise reduction, so this module is deactivated at runtime.
+\end{our}
 
 
 \section{Corneal Reflection}\index{Corneal Reflection}
@@ -56,16 +64,19 @@ In the Starburst algorithm the corneal reflection intensity profile is assumed t
 
 where $\delta = 1$ and $I(r, x, y, \theta)$ is the pixel intensity at angle $\theta$ on the contour of a circle defined by the parameters $r$, $x$, and $y$. The search is initialized with $r = \sqrt{area/\pi}$, where area is the number of pixels in the thresholded region. The search converges rapidly.\bigskip
 
+\begin{our}
 In our implementation we used a simplified version for corneal reflection detection procedure described by the Starburst algorithm. First step we convert the input gray scale image to binary form. Then we perform adaptive thresholding until we find the optimal threshold (which generates the highest ratio) as described in the original algorithm. Next we estimate the the center of corneal reflection region. Till now no differences from the original algorithm. The main difference is that we assume that the corneal reflection is circular and hence we find the radius from the area of circle relation $r = \sqrt{ area_{max} / \pi }$.
+\end{our}
 
 \subsection{Removal}\index{Removal}
 Original Starburst algorithm uses radial interpolation to remove the corneal reflection. First, the central pixel of the identified corneal reflection region is set to the average of the intensities along the contour of the region. Then for each pixel between the center and the contour, the pixel intensity is determined via linear interpolation. \bigskip
 
+\begin{our}
 Our implementation of the corneal reflection removal is different to the original algorithm, we assume that the corneal reflection is circular and hence we fill a circular region in the image with an estimation of the pupil intensity. The pupil intensity is estimated by averaging the intensity along the ring that encapsulates the corneal reflection and is $d$ pixels larger than corneal reflection radius, where $d$ is set to 10 pixels.
+\end{our}
 
 
-
-\section{Starburst Algorithm}\index{Starburst Algorithm}
+\section{Starburst Core Algorithm}\index{Starburst Core Algorithm}
 
 Unlike most of feature based eye tracking approaches that apply edge detection to the entire image, Starburst algorithm detects edges along a limited number of rays that extend from a central best guess of the pupil center. These rays can be seen in Figure \ref{pupil_rays}. This method takes advantage of the high-contrast elliptical profile of the pupil contour present in images taken using the dark-pupil technique. Algorithm pseudo code is shown in algorithm \ref{starburst_psuedo}. \bigskip
 
@@ -154,8 +165,9 @@ Using the two stage feature detection process improves the robustness of the met
 
 Fitting an ellipse to the set of biased feature points will induce significant error into fit. A good strategy to eliminate the bias is to iterate the recently described procedure, with each time computing the average of the detected feature points to be the new estimated center of the pupil for the next iteration. The iterating process is halted when the estimated pupil center between two successive iteration is less than $d = 10$ pixels. Starburst paper mention that if guess is a good estimate of the pupil center, only a single iteration is required. When the initial estimate is not good, typically only a few iterations ($< 5$) are required for convergence. If convergence is not reached within $i = 10 $iterations, as occurs sometimes during a blink when no pupil is visible, the algorithm halts and begins processing the next frame. \bigskip
 
+\begin{our}
 In out implementation of this module we sticked to the exact Startburst algorithm described in the paper.
-
+\end{our}
 
 
 \section{Ellipse Fitting}{Ellipse Fitting}
@@ -182,6 +194,7 @@ To address this issue Starburst uses Random Sample Consensus (RANSAC) paradigm f
 
 The output of the two stage feature detection process may result in very few outliers in some cases, while in other cases outlier prevail. Using the RANSAC technique increase the ability of the system to do robust estimation of the model (ellipse) parameters. The following procedure is repeated $R$ times. First, five samples are randomly drawn from the set of feature set obtained by the previous module.  Singular Value Decomposition (SVD) on the conic constraint matrix generated with normalized feature-point coordinates \cite{multipleViewGeom} is used to find the parameters of the ellipse that perfectly fit these five points. Then, the number of candidate feature points in the data set that agree with this model (i.e. the inliers) are counted. Inliers are those sample points for which the algebraic distance to the ellipse is less than some threshold $t$. \bigskip
 
+\begin{our}
 Our implementation of this stage differs a bit from the implementation of the original Starburst. We draw 5 samples from the detected feature set, then we compute the best fit ellipse using Fitzgibbon's algorithm \cite{fitzgibbon96} which is implemented in OpenCV. Finally we evaluate the error between the estimated model and all feature points and count inliers/outliers. Algorithm \ref{our_ransac_outline} summarizes how we use RANSAC in our system. \bigskip
 
 \begin{algorithm}
@@ -202,7 +215,7 @@ Our implementation of this stage differs a bit from the implementation of the or
 
 
 As a matter of fact we tried different approaches in our implementation, at first we tried to implement the same approach mentioned in the Starburst paper. However finding the SVD of the parameter matrix using OpenCV SVD didn't produce consistent results because the calculated eigen vectors/values were not correct. Some books like \cite{practicalOpenCV} addressed this issue and suggested using Eigen mathematics library \cite{eigenweb} to find the eigen values/vector. In our application we couldn't benefit from this solution since, Eigen library is only available in C++ while the user end if our application is in Java (Android user end).
-
+\end{our}
 
 \subsection{Estimation of Number of Iterations $R$}\index{Number of Iterations}
 Starbusrt algorithm assumes that the average error variance of the feature detector is approximately one pixel and that this error is distributed as a Gaussian with zero mean. Thus to obtain a 95\% probability that a sample is correctly classified as an inlier, the threshold should be derived from a $\chi^{2}$ distribution with one degree of freedom \cite{multipleViewGeom}. This results in a threshold distance of $t = 1.98$ pixels. \bigskip
@@ -221,7 +234,9 @@ it can be proven that
 \section{Homographic Mapping and Calibration}\index{Homographic Mapping and Calibration}
 In order to calculate the point of gaze of the user in the scene image, a mapping between locations in the scene image and an eye-position measure must be determined. The typical way to determine the mapping is via a calibration process. During calibration, the user is required to look at a number of scene points for which the positions in the scene image are known. At each position the eye-position $\vec{e} = (x_{e} ,\: y_{e},\: 1)$ and the scene position $\vec{s} = (x_{s},\: y_{s},\: 1)$ is measured. The mapping is generated using the $3x3$ Homography matrix which has 8 degrees of freedoms. Each point (map from scene to eye) produces 2 independent equations. Hence four mapping points are needed to compute the entries of the homography matrix up to scale \cite{heuristic}. \bigskip
 
-In our implementation we use the OpenCV \textit{findHomography} procedure to find the homography matrix. Given a set of points in image coordinates and corresponding set of points in the eye coordinates, \textit{findHomography} finds a perspective transformation between two coordinate systems. \bigskip
+\begin{our}
+In our implementation we use the OpenCV \textit{findHomography} procedure to find the homography matrix. Given a set of points in image coordinates and corresponding set of points in the eye coordinates, \textit{findHomography} finds a perspective transformation between two coordinate systems.
+\end{our}
 
 Once this mapping is determined the user’s point of gaze in the scene for any frame can be established
 as $\vec{s} = H \vec{e}$.
