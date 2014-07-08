@@ -58,7 +58,7 @@ The results are evaluated based on the ellipse fit of the supporting edges and t
   \mbox{
 	    \subfigure[Algorithm Overview]{
             \label{fig:overview}
-            \includegraphics[width=1.0\textwidth]{./Pictures/Visulaization_of_Pupil_algo.png}
+            \includegraphics[width=1.0\textwidth]{./Pictures/pupil/Visulaization_of_Pupil_algo.png}
         }
    }
    \caption{Vizualization of pupil detection algorithm. 1) Eye image converted to gray scale, user region of interest (white stroke rectangle), and initial estimation of pupil region (white square and dashed line square.) 2) Canny edge detection (green lines). 3) Define "dark" region as offset from lowest spike in histogram within eye image. 4) Filter edges to exclude spectral reflections(yellow) and not inside "dark" areas (blue). 5) Remaining edges extracted into contours using connected components and split into sub-contours based on curvature criteria (multi colored lines). 6) Candidate pupil ellipses (blue) are formed using ellipse fitting. 7) Final Ellipse fit found through an augmented combinatorial search( finally ellipse with center in red)-supporting edge pixels drawn in white.
@@ -73,7 +73,7 @@ The results are evaluated based on the ellipse fit of the supporting edges and t
   \mbox{
 	      \subfigure[Comparison]{
             \label{fig:Comparison}
-            \includegraphics[width=.80\textwidth]{./Pictures/comparison.png}
+            \includegraphics[width=.80\textwidth]{./Pictures/pupil/comparison.png}
         }
    }
    \caption{Comparison of pupil detection rate for Pupil’s algorithm, the stock algorithm proposed by Swirski et al., the ITU gaze tracker and Starburst.
@@ -90,7 +90,7 @@ As can be seen from the Figure, Pupil without p1-right compares favourably to al
   \mbox{
 	      \subfigure[Initial Estimation of Pupil Region]{
             \label{fig:Pupil Region}
-            \includegraphics[width=.80\textwidth]{./Pictures/initial_estimation_of_pupil.png}
+            \includegraphics[width=.80\textwidth]{./Pictures/pupil/initial_estimation_of_pupil.png}
         }
    }
    \caption{ User region of interest (white stroke rectangle), and initial estimation of pupil region (white square and dashed line square.)
@@ -104,7 +104,7 @@ As can be seen from the Figure, Pupil without p1-right compares favourably to al
 \centering
   \mbox{
 	      \subfigure[Estimation of Pupil Region]{
-            \includegraphics[width=.80\textwidth]{./Pictures/estimation_pupil_region.png}
+            \includegraphics[width=.80\textwidth]{./Pictures/pupil/estimation_pupil_region.png}
         }
    }
    \caption{ To find the approximate pupil region, the eye image is convolved with a Haar-like centre surround feature of radius r. The pupil region is centred on the location of the maximal response over all pixels and radii
@@ -119,7 +119,7 @@ As can be seen from the Figure, Pupil without p1-right compares favourably to al
   \mbox{
 	      \subfigure[]{
             \label{fig:IntegralImage}
-            \includegraphics[width=.40\textwidth]{./Pictures/integral_image.png}
+            \includegraphics[width=.40\textwidth]{./Pictures/pupil/integral_image.png}
         }
    }
    \caption{ To find the approximate pupil region, the eye image is convolved with a Haar-like centre surround feature of radius r. The pupil region is centred on the location of the maximal response over all pixels and radii
@@ -152,10 +152,10 @@ Using the integral image any rectangular sum can be computed in four array refer
 \centering
   \mbox{
 	      \subfigure[Original Eye Image]{
-	            \includegraphics[width=.45\textwidth]{./Pictures/0-eye.png}
+	            \includegraphics[width=.45\textwidth]{./Pictures/pupil/0-eye.png}
         }
 	      \subfigure[Region of interest(ROI) after Running Initial Estimation Of Pupil Module]{
-	      		\includegraphics[width=.50\textwidth]{./Pictures/ROI.png}
+	      		\includegraphics[width=.50\textwidth]{./Pictures/pupil/ROI.png}
         }
    }
    
@@ -176,7 +176,7 @@ Input and Output of this module is shown in Figure \ref{fig:Initial_Estimation_O
 \centering
   \mbox{
 	      \subfigure[Eye Image after Computing Histogram]{
-	            \includegraphics[width=.40\textwidth]{./Pictures/histogramOnDarkRegion.png}
+	            \includegraphics[width=.40\textwidth]{./Pictures/pupil/histogramOnDarkRegion.png}
         }
    }
    \caption{After Computing Histogram to get Spikes. 
@@ -189,11 +189,11 @@ Input and Output of this module is shown in Figure \ref{fig:Initial_Estimation_O
 \centering
   \mbox{
 	    \subfigure[Eye image after applying Closing operation on Eye image.]{
-	          \includegraphics[width=.60\textwidth]{./Pictures/dark_region_img.png}
+	          \includegraphics[width=.60\textwidth]{./Pictures/pupil/dark_region_img.png}
         }
         	\subfigure[Dark region is indicated by the Blue Region]{
         		  \label{fig:SpectralReflection} 
-	          \includegraphics[width=.40\textwidth]{./Pictures/DarkRegion.png}
+	          \includegraphics[width=.40\textwidth]{./Pictures/pupil/DarkRegion.png}
         }
 
    }
@@ -208,7 +208,7 @@ Input and Output of this module is shown in Figure \ref{fig:Initial_Estimation_O
 \centering
   \mbox{
 	    \subfigure[Eye image after applying Closing operation on Eye image.]{
-	          \includegraphics[width=.30\textwidth]{./Pictures/dark_region_binary_img.png}
+	          \includegraphics[width=.30\textwidth]{./Pictures/pupil/dark_region_binary_img.png}
         }
    }
    \caption{Final Result of Getting Dark Region Module. 
@@ -232,7 +232,7 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 \centering
   \mbox{
 	    \subfigure[Edges of eye image after Excluding Spectral Reflections]{
-	          \includegraphics[width=.50\textwidth]{./Pictures/edges_after_Removing_Spectral_Refl.png}
+	          \includegraphics[width=.50\textwidth]{./Pictures/pupil/edges_after_Removing_Spectral_Refl.png}
         }
    }
    \caption{Final Result of Excluding Spectral Reflection module.
@@ -254,7 +254,7 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 \centering
   \mbox{
 	    \subfigure[Multi coloured lines represent different contours ]{
-	          \includegraphics[width=.30\textwidth]{./Pictures/contours.png}
+	          \includegraphics[width=.30\textwidth]{./Pictures/pupil/contours.png}
         }
    }
    \caption{Final Result of Extracting Contour module.
@@ -273,7 +273,7 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 \centering
   \mbox{
 	    \subfigure[Final ellipse with center in red and supporting edge pixels are drawn in white.]{
-	          \includegraphics[width=.30\textwidth]{./Pictures/final_ellipse.png}
+	          \includegraphics[width=.30\textwidth]{./Pictures/pupil/final_ellipse.png}
         }
    }
    \caption{Final Result of Ellipse Fitting module.
@@ -299,7 +299,7 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 \centering
   \mbox{
 	    \subfigure[]{
-	          \includegraphics[width=.80\textwidth]{./Pictures/ErrorGraph.png}
+	          \includegraphics[width=.80\textwidth]{./Pictures/pupil/ErrorGraph.png}
         }
    }
    \caption{Error graph for Pupil algorithm performance test
