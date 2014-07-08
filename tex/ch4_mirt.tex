@@ -1,12 +1,12 @@
 
 %----------------------------------------------------------------------------------------
-%	CHAPTER 4  MIRT Eye Tracking Algrithm
+%	CHAPTER 4  MIRT Eye Tracking Algorithm
 %----------------------------------------------------------------------------------------
 \chapterimage{single_eye.jpg}
 \chapter{MIRT} \index{MIRT}
-In this chapter we present MIRT: Morpholgical Based Iris Tracking a novel method for real-time iris detection and tracking. MIRT is a morphological based real-time iris detection algorithm. Morphological operations are simple and fast to compute which reduces the time required to detect the iris. 
+In this chapter we present MIRT: Morphological Based Iris Tracking a novel method for real-time iris detection and tracking. MIRT is a morphological based real-time iris detection algorithm. Morphological operations are simple and fast to compute which reduces the time required to detect the iris. 
 
-Two typed of image processing in eye tracking are used; visible and infrared spectrum imaging. Most available eye tracking approaches like Starburst \cite{starburst} and Pupil \cite{pupil} rely on infrared spectrum imaging. It's known that visible spectrum imaging is more complicated due to the uncontrolled ambient light that is used as a light source which usually contains multiple specular and diffuse components. On the other hand infrared imaging eliminates uncontrolled specular reflection by illuminating the eye with a uniform and controlled infrared light \cite{starburst}. However, infrared imaging requires using special hardware (infrared cameras, infrared lights). MIRT uses visible imaging to track the iris. Not to mention that MIRT can be used outdoors which is not available using infrared based eye-tracking algorithms We also doesn't require any special hardware, we use a low resolution webcam. Used hardware and head-mounted tracker will be discussed later in this book.\bigskip
+Two typed of image processing in eye tracking are used; visible and infrared spectrum imaging. Most available eye tracking approaches like Starburst \cite{starburst} and Pupil \cite{pupil} rely on infrared spectrum imaging. It's known that visible spectrum imaging is more complicated due to the uncontrolled ambient light that is used as a light source which usually contains multiple specular and diffuse components. On the other hand infrared imaging eliminates uncontrolled specular reflection by illuminating the eye with a uniform and controlled infrared light \cite{starburst}. However, infrared imaging requires using special hardware (infrared cameras, infrared lights). MIRT uses visible imaging to track the iris. Not to mention that MIRT can be used outdoors which is not available using infrared based eye-tracking algorithms We also doesn't require any special hardware, we use a low resolution web-cam. Used hardware and head-mounted tracker will be discussed later in this book.\bigskip
 
 
 \section{Overview}\index{Overview}
@@ -46,7 +46,7 @@ The next stage is that we find the largest 2 contours that satisfy the size cons
 			\label{fig:result_2p}
         }
 	}
-   \caption{MIRT in action when 2 parts of sclera are visible; (a) shows the input image. (b) shows the 2 parts of sclera marked with green, ROI marked with yellow, and previous estimation of pupil center x with cyan. (c) shows the estimated ellipse with red and feature points with green crosshairs. \label{fig:mirt_2p} }      
+   \caption{MIRT in action when 2 parts of sclera are visible; (a) shows the input image. (b) shows the 2 parts of sclera marked with green, ROI marked with yellow, and previous estimation of pupil center x with cyan. (c) shows the estimated ellipse with red and feature points with green cross-hairs. \label{fig:mirt_2p} }      
 \end{dBox}   
 \end{figure*}
 
@@ -70,7 +70,7 @@ The next stage is that we find the largest 2 contours that satisfy the size cons
 			\label{fig:res_1p}
         } 
     }
-\caption{MIRT in action when 2 connected parts of sclera are visible; (a) shows the input image. (b) shows the visible contour of sclera marked with green, ROI marked with yellow, and previous estimation of pupil center x with cyan. (c) shows the estimated ellipse with red and feature points with green crosshairs. \label{fig:mirt_1p} }      
+\caption{MIRT in action when 2 connected parts of sclera are visible; (a) shows the input image. (b) shows the visible contour of sclera marked with green, ROI marked with yellow, and previous estimation of pupil center x with cyan. (c) shows the estimated ellipse with red and feature points with green cross-hairs. \label{fig:mirt_1p} }      
 \end{dBox}
 \end{figure*}
 
@@ -101,7 +101,7 @@ where $c$ is the x coordinate value of the iris center estimated in the previous
 			\label{fig:res_l}
         } 
     }|    
-\caption{MIRT in action when the right side of sclera is visible; (a) shows the input image. (b) shows the visible (right) side of sclera marked with green, ROI marked with yellow, and previous estimation of pupil center x with cyan. (c) shows the estimated ellipse with red and feature points with green crosshairs. \label{fig:mirt_l} }      
+\caption{MIRT in action when the right side of sclera is visible; (a) shows the input image. (b) shows the visible (right) side of sclera marked with green, ROI marked with yellow, and previous estimation of pupil center x with cyan. (c) shows the estimated ellipse with red and feature points with green cross-hairs. \label{fig:mirt_l} }      
 \end{dBox}
 \end{figure*}
 
@@ -125,7 +125,7 @@ The opposite case is that if $r > 1$ then the iris is in the left and the right 
         } 
 	}
 
-\caption{MIRT in action when the left side of sclera is visible; (a) shows the input image. (b) shows the visible (left) side of sclera marked with green, ROI marked with yellow, and previous estimation of pupil center x with cyan. (c) shows the estimated ellipse with red and feature points with green crosshairs. \label{fig:mirt_r} }      
+\caption{MIRT in action when the left side of sclera is visible; (a) shows the input image. (b) shows the visible (left) side of sclera marked with green, ROI marked with yellow, and previous estimation of pupil center x with cyan. (c) shows the estimated ellipse with red and feature points with green cross-hairs. \label{fig:mirt_r} }      
 \end{dBox}
 \end{figure*}
 
@@ -175,7 +175,7 @@ The opposite case is that if $r > 1$ then the iris is in the left and the right 
 
 
 \section{Locate Iris In ROI} \index{Locate Iris In ROI}
-In this stage we are interested in finding the iris in the tightly cropped ROI located in stage 1. we start by applying inverse simple thresholding to filter dark areas in the ROI. Next we apply morphological closing followed by opening using 19 pixel circular structuring element. The main goal of this step to fill the gaps in the iris (gaps come from light reflections) and to open between the iris and other parts of the ROI that passed through the thresholding step. Then we find the largest contour in the ROI. In almost all cases the largest contour will contain the iris as shown in figure \ref{fig:iris_contour}. Finally we extract feature points from the largest contour. Edge points of the contour are considered as feature points. We use Random Sample Consensus (RANSAC) paradigm for model fitting \cite{ransac}. RANSAC is an effective technique for model fitting in the presence of a large but unknown percentage of outliers in a measurement sample. In our application inliers are feature points that lie on the iris contour, while outliers are feature points that belong to other contours other than the iris contour. Using the RANSAC technique increase the ability of the system to do robust estimation of the model (ellipse) parameters. We draw 5 samples from the detected feature set, then we compute the best fit ellipse using Fitzgibbon’s algorithm \cite{fitzgibbon96} which is implemented in OpenCV. Finally we evaluate the error between the estimated model and all feature points and count inliers/outliers. Algorithms \ref{mirt_iris_algo} and \ref{our_ransac} summarizes stage 2 procedure and how we use RANSAC in our system respectively. Figure \ref{fig:loc_iris} shows the steps of stage 2. 
+In this stage we are interested in finding the iris in the tightly cropped ROI located in stage 1. we start by applying inverse simple thresholding to filter dark areas in the ROI. Next we apply morphological closing followed by opening using 19 pixel circular structuring element. The main goal of this step to fill the gaps in the iris (gaps come from light reflections) and to open between the iris and other parts of the ROI that passed through the thresholding step. Then we find the largest contour in the ROI. In almost all cases the largest contour will contain the iris as shown in figure \ref{fig:iris_contour}. Finally we extract feature points from the largest contour. Edge points of the contour are considered as feature points. We use Random Sample Consensus (RANSAC) paradigm for model fitting \cite{ransac}. RANSAC is an effective technique for model fitting in the presence of a large but unknown percentage of outliers in a measurement sample. In our application inliers are feature points that lie on the iris contour, while outliers are feature points that belong to other contours other than the iris contour. Using the RANSAC technique increase the ability of the system to do robust estimation of the model (ellipse) parameters. We draw 5 samples from the detected feature set, then we compute the best fit ellipse using Fitzgibbon’s algorithm \cite{fitzgibbon96} which is implemented in OpenCV. Finally we evaluate the error between the estimated model and all feature points and count inliers / outliers. Algorithms \ref{mirt_iris_algo} and \ref{our_ransac} summarizes stage 2 procedure and how we use RANSAC in our system respectively. Figure \ref{fig:loc_iris} shows the steps of stage 2. 
 
 
 \begin{figure}[h]
@@ -210,7 +210,7 @@ In this stage we are interested in finding the iris in the tightly cropped ROI l
         } 
 	}
 
-\caption{Visulization of Mirt stage 2. (a) shows the input cropped ROI, (b) shows the binary image after inverse thresholding, (c) shows the binary image after performing closing followed by opening, (d) visualizes the largest contour in the image (colored with yellow) and extracted feature points marked with green crosshairs and red points, (e) shows the esmiated ellipse with red curve. \label{fig:loc_iris} }      
+\caption{Visualization of MIRT stage 2. (a) shows the input cropped ROI, (b) shows the binary image after inverse thresholding, (c) shows the binary image after performing closing followed by opening, (d) visualizes the largest contour in the image (colored with yellow) and extracted feature points marked with green cross-hairs and red points, (e) shows the estimated ellipse with red curve. \label{fig:loc_iris} }      
 \end{dBox}
 \end{figure}
 
