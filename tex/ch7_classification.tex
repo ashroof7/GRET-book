@@ -10,13 +10,17 @@ Every recognition algorithm requires the surrounding environment to assist the p
 
 \item No Skin color exits elsewhere in the captured frame. Otherwise, this will affect the color segmentation changes and many other stage such extracting the blob area and perimeter.
 
-\item The Hand is the largest connected component in the image frame. This is based on the nature of the device we developed our work to work on, the glass. The hand before the glass is always the largest object in the frame. 
+\item The Hand is the largest connected component in the image frame. This is based on the nature of the device we developed our work to work on, the glass. The hand before the glass is always the largest object in the frame.
+\bigskip
 
 \item The balm of the hand must be separated from the arm by some black cover or anything colored differently from the hand at its rest. 
+\bigskip
 
 \item The closed hand is a special static gesture responsible for separating between the recognition of a gesture and the next one. 
+\bigskip
 
 \item The dynamic gestures are restricted to just the basic directions; up, down, left, and right. This assumption has its advantages concerning the processing time and the overhead over any application. Yet the interpretation of the four directions is depending essentially on the application. 
+\bigskip
 
 \item The separator introduced in the 4th assumption is not applied on dynamic gestures. Dynamic gestures as will be seen are computed between every two frames of motion. As long as the hand is moving, the change in the motion's direction is detected. However, the transition between static gestures and dynamic gestures and vice versa requires the separator to be detected first. 
 \end{enumerate}
@@ -298,9 +302,6 @@ So far, we have described linear and nonlinear SVMs for binary (i.e., two-class)
 % \end{dBox}   
 % \end{figure*}
 
-
-\subsection{Naive Base}\index{Naive Base}
-Not Yet \bigskip
 
 \subsection{KNN}\index{KNN}
 The k-nearest-neighbor method \cite{classifications} was first described in the early 1950s. The method is labor intensive when given large training sets, and did not gain popularity until the 1960s when increased computing power became available. It has since been widely used in the area of pattern recognition. \bigskip
