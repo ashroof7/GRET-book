@@ -1,7 +1,7 @@
 %----------------------------------------------------------------------------------------
 %	CHAPTER 1 // Introduction
 %----------------------------------------------------------------------------------------
-\chapterimage{cover_3.jpg} %TODO change 
+\chapterimage{cover_3.jpg} 
 \chapter{Introduction}
 Our project is based on two techniques, which are eye tracking and gestures recognition. Using these techniques, we can facilitate Human Computer Interaction. This will be very useful for people who have some disabilities. Handicapped who are unable to use their hands to touch the mouse and keyboard can interact with computers using their eye only. With eye tracking, we can detect the gaze point on the screen and determine where the person looks at in order to facilitate the handicapped communication.
 
@@ -40,15 +40,96 @@ On the other hand, model-based approaches don't explicitly detect features but r
  
 
 
-\subsection{Starburst}\index{Starburst}
+\subsubsection{Starburst}\index{Starburst}
 Starburst is a robust algorithm for video based eye tracking. We started with implementing Starburst Algorithm. This algorithm is more accurate than pure feature-based approaches yet is significantly less time consuming than pure model-based approaches. A validation study shows that the technique can reliably estimate eye position with an accuracy of approximately one degree of visual angle even in the presence of significant image noise. \bigskip
 
 The use of eye tracking has significant potential to enhance the quality of everyday human-computer interfaces. Two types of human-computer interfaces utilize eye-movement measures active and passive interfaces. Active interfaces allow users to explicitly control the interface through the use of eye movements. For example, eye-typing applications allow the user to look at keys on a virtual keyboard to type instead of manually pressing keys as with a traditional keyboard. Similarly, systems have been designed that allow users to control the mouse pointer with their eyes in a way that can support, for example, the drawing of pictures. Active interfaces that allow users with movement disabilities to interact with computers may also be helpful for healthy users by speeding icon selection in graphical user interfaces or object selection in virtual reality. Passive interfaces, on the other hand, monitor the user's eye movements and use this information to adapt some aspect of the display. For example, in video transmission and virtual-reality applications, gaze contingent variable-resolution display techniques present a high level of detail at the point of gaze while sacrificing level of detail in the periphery where the absence of detail is not distracting. While eye tracking has been deployed in a number of research systems and to some smaller degree consumer products, eye tracking has not reached its full potential.
 
-\subsection{Robust Realtime Pupil Tracking}\index{Robust Realtime Pupil Tracking}
+\subsubsection{Robust Realtime Pupil Tracking}\index{Robust Realtime Pupil Tracking}
 In this paper, they present a real-time dark-pupil tracking algorithm designed for low-cost head-mounted active-IR hardware. Their algorithm is robust to highly eccentric pupil ellipses and partial obstructions from eyelashes, making it suitable for use with cameras mounted close to the eye. It first computes a fast initial approximation of the pupil position, and performs a novel RANSAC based ellipse fitting to robustly refine this approximation.
 
-\subsection{Pupil}\index{Pupil}
+\subsubsection{Pupil}\index{Pupil}
 Pupil is an open source platform for pervasive eye tracking and mobile gazed interaction. In this paper, they argue that affordability does not necessarily align with accessibility. They define accessible eye tracking platforms to have the following qualities: open source components, modular hardware and software design, comprehensive documentation, user support, affordable price, and flexibility for future changes. \bigskip
 
 They have developed Pupil, a mobile eye tracking headset and an open source software framework, as an accessible, affordable, and extensible tool for pervasive eye tracking research. They explain the design motivation of the system, provide an in depth technical description of both hardware and software, and provide an analysis of accuracy and performance of the system.
+\bigskip
+
+\subsection{Gesture Recognition}\index{Gesture Recognition}
+Traditional human-computer interaction devices such as the keyboard and mouse became ineffective for an effective interaction with the virtual environment applications because the 3D applications need a new interaction device. An efficient human interaction with the modern virtual environments requires more natural devices. Among them the “Hand Gesture” human-computer interaction modality has recently become of major interest. The main objective of gesture recognition research is to build a system which can recognize human gestures and utilize them to control an application. Hand gestures are a collection of movements of the hand and arm that vary from the static posture of pointing at something to the dynamic ones used to communicate with others. Recognizing these hand movements needs modeling them in the
+spatial and temporal domains. Hand posture is the static structure of the hand while its dynamic movement is called hand gesture and both are particularly crucial for human-computer interaction. The methods used for understanding these structures and movements are among the most classifying researches that still in progress.
+\bigskip
+
+Methods for vision based hand gesture recognition fall into two categories: 3D model based methods and appearance model based methods. 3D model may exactly describe hand movement and its shape, but most of them are computational expensive to use. Recently there are some methods to obtain 3D model with 2D appearance model such as ISOSOM and PCA-ICA in \cite{relatedsg1} and \cite{relatedsg2}.
+\bigskip
+
+\subsubsection{Static Gesture Recognition}\index{Static Gesture Recognition}
+
+There have been a number of research efforts on appearance based method in recent years. Freeman and Weissman recognized gestures for television control using normalized correlation \cite{relatedsg3}. This technique is efficient but may be sensitive to different users, deformations of the pose and changes in scale, and background. Lars and Lindberg used scale-space color features to recognize hand gestures \cite{relatedsg4}. In their method, gesture recognition method is based on feature detection and user independent while the authors showed real-time application only under uniform backgrounds.
+\bigskip
+
+Yikai Fang, Kongqiao Wang proposed "A REAL-TIME HAND GESTURE RECOGNITION METHOD" \cite{relatedsg5} which based their work on Lars's work. They combine fast hand tracking, hand segmentation and multi-scale feature extraction to develop an accurate and robust hand gesture recognition method. It takes advantage of color and motion cues acquired during tracking to implement adaptive hand segmentation.
+\bigskip
+
+Our initial work was inspired by a combination of Yikai, Wang's work and a method described in\cite{survey}. We made an initial approach for hand detection and static gesture recognition based on the following procedure:\bigskip
+
+
+\begin{itemize}
+\item Detect hand from image based on:
+\begin{itemize}
+\item Skin color detection.
+\item Hand is assumed to be the largest contour.
+\end{itemize}
+\item Extract Number of fingers, center of hand.
+\item Identify gesture based on outputs from previous module using blocks of condition statements based on:
+\begin{itemize}
+\item Number of fingers.
+\item Their angles with respect to x, y axis.
+\end{itemize}
+\end{itemize}
+\bigskip
+
+This approach has many problems that rise during the implementation:\bigskip
+
+
+\begin{itemize}
+\item There is a threshold to determine which points on the contour represent a finger point. That threshold is not reliable and sensitive to:
+\begin{itemize}
+\item Orientation of the hand.
+\item Size of the hand.
+\end{itemize}
+\item Then we modified the threshold to be relative to hand size by using an equation that holds the hand width, height, and center point as variables.
+That modification solves the reliability to hand size problem, but doesn't solve the orientation problem.
+\item Unreliable if for example we want to distinguish between up gesture made by index finger, or thumb finger.
+\end{itemize}
+\bigskip
+
+To solve the problems with the initial work, we directed our thoughts to machine learning. Where, we extract features from hand and use classification as described in paper \cite{relatedsg6}.
+\bigskip
+
+So we defined Three Approaches for static gestures. They differ on features used to represent the gesture:
+\begin{enumerate}
+\item Binary Representation Gridding as described in [].
+\item Predefined Feature Extraction as described in \cite{paper2sT}.
+\item SIFT And Bag of Features Approach as described in \cite{dardas}.
+\end{enumerate}
+\bigskip
+
+\subsubsection{Dynamic Gestures Recognition} \index{Dynamic Gestures Recognition}
+During our search for already existing approaches for hand gestures, we came across a method 
+for detecting continuous gestures by hand trajectories. Hidden Markov Model based \cite{hoda} 
+continuous gesture recognition system is Statistical Model capable of modeling spatio-temporal 
+time series where the same gesture can differ in shape and duration. This method defines a 
+gesture as Spatio-Temporal Pattern which may be Static, Dynamic or Both. The objective of 
+this approach according to the paper explained it, was to Recognize gestures for drawing any 
+number from (0-9) one or two digits.
+\bigskip
+
+This approach assumes that the hand has been detected and its articulated motion is tracked. 
+Although they have delivered promising results, the robustness of these approaches is dependent 
+on the prior success of (frequently challenging) hand detection and motion tracking. In addition, 
+it is both data intensive and computationally difficult to train these models before they can be 
+applied in recognition. For these reasons, we didn’t pick this method in our system. We need a 
+relatively fast processing. Meanwhile, we need our method not to have an overhead on the 
+processor. We deal with relatively small processors with limited capabilities and so, our work has 
+to comply with this limitation.
+\bigskip

@@ -1,71 +1,94 @@
 %----------------------------------------------------------------------------------------
 %	CHAPTER Gesture Recognition Introduction
 %----------------------------------------------------------------------------------------
-\chapterimage{cover_g_1.png} % Chapter heading image
+\chapterimage{cover_g_1.png} % Chapter heading image} % Chapter heading image
 \chapter{Gesture Recognition}
-\section{Introduction and Related Work}\index{Introduction and Related Work}
-Introduction part--Not added yet.
+% \section{Introduction}\index{Introduction}
+% Traditional human-computer interaction devices such as the keyboard and mouse became ineffective for an effective interaction with the virtual environment applications because the 3D applications need a new interaction device. An efficient human interaction with the modern virtual environments requires more natural devices. Among them the “Hand Gesture” human-computer interaction modality has recently become of major interest. The main objective of gesture recognition research is to build a system which can recognize human gestures and utilize them to control an application. Hand gestures are a collection of movements of the hand and arm that vary from the static posture of pointing at something to the dynamic ones used to communicate with others. Recognizing these hand movements needs modeling them in the
+% spatial and temporal domains. Hand posture is the static structure of the hand while its dynamic movement is called hand gesture and both are particularly crucial for human-computer interaction. The methods used for understanding these structures and movements are among the most classifying researches that still in progress.
+
+
 \bigskip
 
-Methods for vision based hand gesture recognition fall into two categories: 3D model based methods and appearance model based methods. 3D model may exactly describe hand movement and its shape, but most of them are computational expensive to use. Recently there are some methods to obtain 3D model with 2D appearance model such as ISOSOM and PCA-ICA in \cite{relatedsg1} and \cite{relatedsg2}.
-\bigskip
+% \subsection{Static Gestures Related Work} \index{Static Gestures Related Work}
+% Methods for vision based hand gesture recognition fall into two categories: 3D model based methods and appearance model based methods. 3D model may exactly describe hand movement and its shape, but most of them are computational expensive to use. Recently there are some methods to obtain 3D model with 2D appearance model such as ISOSOM and PCA-ICA in \cite{relatedsg1} and \cite{relatedsg2}.
+% \bigskip
 
-There have been a number of research efforts on appearance based method in recent years. Freeman and Weissman recognized gestures for television control using normalized correlation \cite{relatedsg3}. This technique is efficient but may be sensitive to different users, deformations of the pose and changes in scale, and background. Lars and Lindberg used scale-space color features to recognize hand gestures \cite{relatedsg4}. In their method, gesture recognition method is based on feature detection and user independent while the authors showed real-time application only under uniform backgrounds.
-\bigskip
+% There have been a number of research efforts on appearance based method in recent years. Freeman and Weissman recognized gestures for television control using normalized correlation \cite{relatedsg3}. This technique is efficient but may be sensitive to different users, deformations of the pose and changes in scale, and background. Lars and Lindberg used scale-space color features to recognize hand gestures \cite{relatedsg4}. In their method, gesture recognition method is based on feature detection and user independent while the authors showed real-time application only under uniform backgrounds.
+% \bigskip
 
-Yikai Fang, Kongqiao Wang proposed "A REAL-TIME HAND GESTURE RECOGNITION METHOD" \cite{relatedsg5} which based their work on Lars's work. They combine fast hand tracking, hand segmentation and multi-scale feature extraction to develop an accurate and robust hand gesture recognition method. It takes advantage of color and motion cues acquired during tracking to implement adaptive hand segmentation.
-\bigskip
+% Yikai Fang, Kongqiao Wang proposed "A REAL-TIME HAND GESTURE RECOGNITION METHOD" \cite{relatedsg5} which based their work on Lars's work. They combine fast hand tracking, hand segmentation and multi-scale feature extraction to develop an accurate and robust hand gesture recognition method. It takes advantage of color and motion cues acquired during tracking to implement adaptive hand segmentation.
+% \bigskip
 
-Our initial work was inspired by Yikai, Wang's work. We made an initial approach for hand detection and static gesture recognition based on the following procedure:\bigskip
-
-
-\begin{itemize}
-\item Detect hand from image based on:
-\begin{itemize}
-\item Skin color detection.
-\item Hand is assumed to be the largest contour.
-\end{itemize}
-\item Extract Number of fingers, center of hand.
-\item Identify gesture based on outputs from previous module using blocks of condition statements based on:
-\begin{itemize}
-\item Number of fingers.
-\item Their angles with respect to x, y axis.
-\end{itemize}
-\end{itemize}
-\bigskip
-
-This approach has many problems that rise during the implementation:\bigskip
+% Our initial work was inspired by a combination of Yikai, Wang's work and a method described in\cite{survey}. We made an initial approach for hand detection and static gesture recognition based on the following procedure:\bigskip
 
 
-\begin{itemize}
-\item There is a threshold to determine which points on the contour represent a finger point. That threshold is not reliable and sensitive to:
-\begin{itemize}
-\item Orientation of the hand.
-\item Size of the hand.
-\end{itemize}
-\item Then we modified the threshold to be relative to hand size by using an equation that holds the hand width, height, and center point as variables.
-That modification solves the reliability to hand size problem, but doesn't solve the orientation problem.
-\item Unreliable if for example we want to distinguish between up gesture made by index finger, or thumb finger.
-\end{itemize}
-\bigskip
+% \begin{itemize}
+% \item Detect hand from image based on:
+% \begin{itemize}
+% \item Skin color detection.
+% \item Hand is assumed to be the largest contour.
+% \end{itemize}
+% \item Extract Number of fingers, center of hand.
+% \item Identify gesture based on outputs from previous module using blocks of condition statements based on:
+% \begin{itemize}
+% \item Number of fingers.
+% \item Their angles with respect to x, y axis.
+% \end{itemize}
+% \end{itemize}
+% \bigskip
 
-To solve the problems with the initial work, we directed our thoughts to machine learning. Where, we extract features from hand and use classification as described in paper \cite{relatedsg6}.
-\bigskip
+% This approach has many problems that rise during the implementation:\bigskip
 
-So we defined Three Approaches for static gestures. They differ on features used to represent the gesture:
-\begin{enumerate}
-\item Binary Representation Gridding as described in [link to that paper].
-\item Predefined Feature Extraction as described in \cite{paper2sT}.
-\item SIFT And Bag of Features Approach as described in [link to the paper].
-\end{enumerate}
-\bigskip
+
+% \begin{itemize}
+% \item There is a threshold to determine which points on the contour represent a finger point. That threshold is not reliable and sensitive to:
+% \begin{itemize}
+% \item Orientation of the hand.
+% \item Size of the hand.
+% \end{itemize}
+% \item Then we modified the threshold to be relative to hand size by using an equation that holds the hand width, height, and center point as variables.
+% That modification solves the reliability to hand size problem, but doesn't solve the orientation problem.
+% \item Unreliable if for example we want to distinguish between up gesture made by index finger, or thumb finger.
+% \end{itemize}
+% \bigskip
+
+% To solve the problems with the initial work, we directed our thoughts to machine learning. Where, we extract features from hand and use classification as described in paper \cite{relatedsg6}.
+% \bigskip
+
+% So we defined Three Approaches for static gestures. They differ on features used to represent the gesture:
+% \begin{enumerate}
+% \item Binary Representation Gridding as described in [].
+% \item Predefined Feature Extraction as described in \cite{paper2sT}.
+% \item SIFT And Bag of Features Approach as described in \cite{dardas}.
+% \end{enumerate}
+% \bigskip
+% \subsection{Dynamic Gestures Related Work} \index{Dynamic Gestures Related Work}
+% During our search for already existing approaches for hand gestures, we came across a method 
+% for detecting continuous gestures by hand trajectories. Hidden Markov Model based \cite{hoda} 
+% continuous gesture recognition system is Statistical Model capable of modeling spatio-temporal 
+% time series where the same gesture can differ in shape and duration. This method defines a 
+% gesture as Spatio-Temporal Pattern which may be Static, Dynamic or Both. The objective of 
+% this approach according to the paper explained it, was to Recognize gestures for drawing any 
+% number from (0-9) one or two digits.
+% \bigskip
+
+% This approach assumes that the hand has been detected and its articulated motion is tracked. 
+% Although they have delivered promising results, the robustness of these approaches is dependent 
+% on the prior success of (frequently challenging) hand detection and motion tracking. In addition, 
+% it is both data intensive and computationally difficult to train these models before they can be 
+% applied in recognition. For these reasons, we didn’t pick this method in our system. We need a 
+% relatively fast processing. Meanwhile, we need our method not to have an overhead on the 
+% processor. We deal with relatively small processors with limited capabilities and so, our work has 
+% to comply with this limitation.
+% \bigskip
 
 
 \section{Static Gestures}\index{Static Gestures}
 This chapter includes the work done to detect static gestures. It begins by describing the general idea of segmentation and recognition and then proceeds to the following sections.\bigskip
 
 
-\subsection{Prior Elaboration}\index{Prior Elaboration}
+\subsection{Hand segmentation}\index{Hand segmentation}
 Segmentation is a very critical process. It depends majorly, in our case, on the detection of the hand, only the hand. That is why the lightest amount of noise could affect and diverge the result greatly. This is the reason behind noise elimination. It is an essential step prior to any segmentation process. We need to elaborate the image cleanly for the detector to easily find the item of interest among any other item in the image. Smoothing is considered the most effective solution in case of noise elimination. Many approaches have been devised to perform smoothing capably on the images just to keep the meaningful item for us unharmed in case there is any interference of any noise. The mask, filter, we use for noise elimination is Gaussian Smoothing.
 need.\bigskip
 \subsubsection{Gaussian Smoothing}\index{Prior Elaboraion}
@@ -147,7 +170,7 @@ above.). The Y component is exactly the same but is oriented vertically.
 	          \includegraphics[width=.60\textwidth]{./Pictures/gesture/row_table.jpg}
         }
    }
-   \caption{ \label{fig:fig4} }   
+   \caption{Gaussian kernal:(a) 2D kernal, (b) equivalent 1-d kernal \label{fig:fig4} }   
 \end{dBox}   
 \end{figure*}
 
@@ -198,7 +221,7 @@ with $\sigma$ = 3. We used figure \ref{fig:fig6} to illustrate the Gaussian's sm
 	          \includegraphics[width=.80\textwidth]{./Pictures/gesture/freq_responses.jpg}
         }
    }
-   \caption{Frequency responses \label{fig:fig5} }   
+   \caption{Comparison of Frequency responses: (a) Box Filter. (b) Gaussian Filter. \label{fig:fig5} }   
 \end{dBox}   
 \end{figure*}
 
@@ -215,11 +238,11 @@ with $\sigma$ = 3. We used figure \ref{fig:fig6} to illustrate the Gaussian's sm
            \includegraphics[width=.31\textwidth]{./Pictures/gesture/smooth2.jpg}
         }
         \subfigure[]{
-            \label{fig:sift_3}
+            \label{fig:smooth_3}
             \includegraphics[width=.31\textwidth]{./Pictures/gesture/smooth3.jpg}
        }
    }
-   \caption{Gaussian's smoothing effect \label{fig:fig6} }   
+   \caption{Gaussian's smoothing effect using different kernal's sizes. \label{fig:fig6} }   
 \end{dBox}   
 \end{figure*}
 
@@ -318,7 +341,7 @@ illustrates an example calculation.
 	          \includegraphics[width=.80\textwidth]{./Pictures/gesture/median.jpg}
         }
    }
-   \caption{
+   \caption{ Median Filter Calculation.
    \label{fig:fig7} }   
 \end{dBox}   
 \end{figure*}
@@ -335,34 +358,32 @@ filter straddles an edge. For this reason, the median filter is much better at p
 sharp edges than the mean filter.
 \end{itemize}
 
-Figure \ref{fig:fig8} illustrates the effect of the median filter with many kernel sizes. At our 
-work, we used the median filter with kernel size 5*5. It was most convenient for our work and 
+% Figure \ref{fig:fig8} illustrates the effect of the median filter with many kernel sizes. At our 
+% work,
+We used the median filter with kernel size 5*5. It was most convenient for our work and 
 this size preserved the edges the way we would like it to be. 
-\begin{figure*}[h]
-\begin{dBox}
-\centering
-  \mbox{
-      \subfigure[]{
-            \label{fig:median_1}
-            \includegraphics[width=.31\textwidth]{./Pictures/gesture/smooth_median_1.jpg}
-        }
-        \subfigure[]{
-           \label{fig:median_2}
-           \includegraphics[width=.31\textwidth]{./Pictures/gesture/smooth_median_2.jpg}
-        }
-        \subfigure[]{
-            \label{fig:median_3}
-            \includegraphics[width=.31\textwidth]{./Pictures/gesture/smooth_median_3.jpg}
-       }
-   }
-   \caption{Median Filter \label{fig:fig8} }   
-\end{dBox}   
-\end{figure*}
+% \begin{figure*}[h]
+% \begin{dBox}
+% \centering
+%   \mbox{
+%       \subfigure[]{
+%             \label{fig:median_1}
+%             \includegraphics[width=.31\textwidth]{./Pictures/gesture/smooth_median_1.jpg}
+%         }
+%         \subfigure[]{
+%           \label{fig:median_2}
+%           \includegraphics[width=.31\textwidth]{./Pictures/gesture/smooth_median_2.jpg}
+%         }
+%         \subfigure[]{
+%             \label{fig:median_3}
+%             \includegraphics[width=.31\textwidth]{./Pictures/gesture/smooth_median_3.jpg}
+%       }
+%   }
+%   \caption{Median Filter \label{fig:fig8} }   
+% \end{dBox}   
+% \end{figure*}
 
-\subsubsection{Binary Image and Connected Components}\index{Binary Image and Connected Components}
-NOT YET
-
-\subsection{Algorithm one: Binary Representation}\index{Algorithm one: Binary Representation}
+\subsection{Algorithm one: Gridding}\index{Algorithm one: Gridding}
 
 The algorithm as described in \cite{paper1sb} takes the hand in the binary from as shown in Figure \ref{fig:grid_idea} (a).
 The general idea of the algorithm is that we need parts of the image to vote for their existence but not pixel by pixel to decrease processing time. So the algorithm divides the binary image into grids as shown in Figure \ref{fig:grid_idea} (b).
@@ -380,7 +401,7 @@ The general idea of the algorithm is that we need parts of the image to vote for
         }
        
         }
-   \caption{Binary Image and its gridding  \label{fig:grid_idea} }   
+   \caption{Binary Image: (a) Pure binary and (b) Gridding  \label{fig:grid_idea} }   
 \end{dBox}   
 \end{figure*}
 And let each grid's vote represent the votes of its pixels. Each grid votes according to its state as shown in Figure \ref{fig:vote_idea}.\bigskip
@@ -410,7 +431,7 @@ The Whole case and the voting determination process is explained bye the flow ch
         }
        
         }
-   \caption{Voting Flow Chart \label{fig:vfc} }   
+   \caption{Voting procedure Flow Chart \label{fig:vfc} }   
 \end{dBox}   
 \end{figure*}
 \bigskip
@@ -530,7 +551,7 @@ The griding approximation is acting as if we let group of pixels decides rather 
            \includegraphics[width=.33\textwidth]{./Pictures/gesture/n10.jpg}
         }
    }
-   \caption{Voting Results Using Different Grid Sizes \label{fig:bin_sizes} }   
+   \caption{Voting Results Using Different Grid Sizes: (a) n=2 , (b) n =5 , and (c) n = 10  \label{fig:bin_sizes} }   
 \end{dBox}   
 \end{figure}
 \bigskip
@@ -586,7 +607,7 @@ Feature extraction is a crucial step in computer vision applications for hand ge
            \includegraphics[width=.5\textwidth]{./Pictures/gesture/area.jpg}
         }
    }
-   \caption{First Two Features \cite{paper2sT} \label{fig:mean_area} }   
+   \caption{First Two Features: (a) Mean and variance, and (b) Area and permiter. \cite{paper2sT} \label{fig:mean_area} }   
 \end{dBox}   
 \end{figure*}
 \bigskip
@@ -671,16 +692,16 @@ However, a problem (as shown in Figure \ref{fig:radial_sig} (a) ) is how to meas
 \begin{dBox}
 \centering
   \mbox{
-      \subfigure[Radial Idea]{
+      \subfigure[]{
             \label{fig:radial}
             \includegraphics[width=.31\textwidth]{./Pictures/gesture/radial.jpg}
         }
-        \subfigure[Corrected Radial]{
+        \subfigure[]{
            \label{fig:radial_2}
            \includegraphics[width=.31\textwidth]{./Pictures/gesture/radial2.jpg}
         }
    }
-   \caption{Radial Signature \cite{feature4} \label{fig:radial_sig} }   
+   \caption{Radial Signature: (a) simple Idea, and (b) Complicated Idea. \cite{feature4} \label{fig:radial_sig} }   
 \end{dBox}   
 \end{figure*}
 
@@ -693,16 +714,16 @@ During tests it was noticed that the quality of recognition depended on the numb
 \begin{dBox}
 \centering
   \mbox{
-      \subfigure[Radial Signature with bin=100]{
+      \subfigure[]{
             \label{fig:ori_bin}
             \includegraphics[width=.31\textwidth]{./Pictures/gesture/ori_bins.jpg}
         }
-        \subfigure[Radial Signature with bin=100]{
+        \subfigure[]{
            \label{fig:inc_bin}
            \includegraphics[width=.31\textwidth]{./Pictures/gesture/inc_bins.jpg}
         }
    }
-   \caption{Radial Signature with different bin sizes\cite{feature4} \label{fig:radial_bins} }   
+   \caption{Radial Signature with different bin sizes: (a) Radial Signature with bin=100, and (b) Radial Signature with bin=200. \cite{feature4} \label{fig:radial_bins} }   
 \end{dBox}   
 \end{figure*}
 
@@ -733,20 +754,20 @@ generating a 128-dimensional feature vector. See Figure \ref{fig:sift_example} f
 \begin{dBox}
 \centering
   \mbox{
-      \subfigure[Open Hand]{
+      \subfigure[]{
             \label{fig:sift_1}
             \includegraphics[width=.31\textwidth]{./Pictures/gesture/call_0_SIFT.jpg}
         }
-        \subfigure[Closed Hand]{
+        \subfigure[]{
            \label{fig:sift_2}
            \includegraphics[width=.31\textwidth]{./Pictures/gesture/closed_10_SIFT.jpg}
         }
-        \subfigure[Hand pointing to left]{
+        \subfigure[]{
             \label{fig:sift_3}
             \includegraphics[width=.31\textwidth]{./Pictures/gesture/left_0_SIFT.jpg}
        }
    }
-   \caption{SIFT features \label{fig:sift_example} }   
+   \caption{SIFT features: (a) Open Hand, (b) Closed Hand, and (c) Hand pointing to Left. \label{fig:sift_example} }   
 \end{dBox}   
 \end{figure*}
 \bigskip
@@ -853,16 +874,16 @@ When an object moves in front of a camera, there is a corresponding change in th
 \begin{dBox}
 \centering
   \mbox{
-      \subfigure[Point Moving in Image Plane]{
+      \subfigure[]{
             \label{fig:dynamic_1}
             \includegraphics[width=.5\textwidth]{./Pictures/gesture/dynamic1.jpg}
         }
-        \subfigure[Motion Field Idea]{
+        \subfigure[]{
            \label{fig:dynamic_2}
            \includegraphics[width=.5\textwidth]{./Pictures/gesture/dynamic2.jpg}
         }
    }
-   \caption{\label{fig:dynamic12} }   
+   \caption{(a)Point Moving in Image Plane, and (b) Motion Field Idea. \label{fig:dynamic12} }   
 \end{dBox}   
 \end{figure*}
 
@@ -972,7 +993,7 @@ The following figures show optical flow vectors (sampled at every $16^th$ pixel)
            \includegraphics[width=.31\textwidth]{./Pictures/gesture/dynamic8.jpg}
         }
    }
-   \caption{\label{fig:dynamic678} }   
+   \caption{Lucas Kanade Tracking \label{fig:dynamic678} }   
 \end{dBox}   
 \end{figure*}
 
@@ -993,7 +1014,7 @@ The following figures show optical flow vectors (sampled at every $16^th$ pixel)
            \includegraphics[width=.31\textwidth]{./Pictures/gesture/dynamic11.jpg}
         }
    }
-   \caption{\label{fig:dynamic91011} }   
+   \caption{Lucas Kanade Tracking\label{fig:dynamic91011} }   
 \end{dBox}   
 \end{figure*}
 
@@ -1025,7 +1046,7 @@ Standard Lucas-Kanade tracking works for small displacements. To handle larger d
            \includegraphics[width=.31\textwidth]{./Pictures/gesture/dynamic14.jpg}
         }
    }
-   \caption{\label{fig:dynamic121314} }   
+   \caption{Features Tracking Example.\label{fig:dynamic121314} }   
 \end{dBox}   
 \end{figure*}
 
