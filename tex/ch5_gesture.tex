@@ -13,10 +13,10 @@ Methods for vision based hand gesture recognition fall into two categories: 3D m
 There have been a number of research efforts on appearance based method in recent years. Freeman and Weissman recognized gestures for television control using normalized correlation \cite{relatedsg3}. This technique is efficient but may be sensitive to different users, deformations of the pose and changes in scale, and background. Lars and Lindberg used scale-space color features to recognize hand gestures \cite{relatedsg4}. In their method, gesture recognition method is based on feature detection and user independent while the authors showed real-time application only under uniform backgrounds.
 \bigskip
 
-Yikai Fang, Kongqiao Wang proposed "A REAL-TIME HAND GESTURE RECOGNITION METHOD" \cite{relatedsg5} which based their work on Lars’s work. They combine fast hand tracking, hand segmentation and multi-scale feature extraction to develop an accurate and robust hand gesture recognition method. It takes advantage of color and motion cues acquired during tracking to implement adaptive hand segmentation.
+Yikai Fang, Kongqiao Wang proposed "A REAL-TIME HAND GESTURE RECOGNITION METHOD" \cite{relatedsg5} which based their work on Lars's work. They combine fast hand tracking, hand segmentation and multi-scale feature extraction to develop an accurate and robust hand gesture recognition method. It takes advantage of color and motion cues acquired during tracking to implement adaptive hand segmentation.
 \bigskip
 
-Our initial work was inspired by Yikai, Wang‘s work. We made an initial approach for hand detection and static gesture recognition based on the following procedure:\bigskip
+Our initial work was inspired by Yikai, Wang's work. We made an initial approach for hand detection and static gesture recognition based on the following procedure:\bigskip
 
 
 \begin{itemize}
@@ -44,7 +44,7 @@ This approach has many problems that rise during the implementation:\bigskip
 \item Size of the hand.
 \end{itemize}
 \item Then we modified the threshold to be relative to hand size by using an equation that holds the hand width, height, and center point as variables.
-That modification solves the reliability to hand size problem, but doesn’t solve the orientation problem.
+That modification solves the reliability to hand size problem, but doesn't solve the orientation problem.
 \item Unreliable if for example we want to distinguish between up gesture made by index finger, or thumb finger.
 \end{itemize}
 \bigskip
@@ -188,7 +188,7 @@ filter, i.e. its effect on different spatial
 frequencies, can be seen by taking the 
 Fourier transform of the filter. Figure \ref{fig:fig5}
 shows the frequency responses of a 1-D mean filter with width 5 and also of a Gaussian filter 
-with $\sigma$ = 3. We used figure \ref{fig:fig6} to illustrate the Gaussian’s smoothing effect.
+with $\sigma$ = 3. We used figure \ref{fig:fig6} to illustrate the Gaussian's smoothing effect.
 
 \begin{figure*}[h]
 \begin{dBox}
@@ -219,7 +219,7 @@ with $\sigma$ = 3. We used figure \ref{fig:fig6} to illustrate the Gaussian’s sm
             \includegraphics[width=.31\textwidth]{./Pictures/gesture/smooth3.jpg}
        }
    }
-   \caption{Gaussian’s smoothing effect \label{fig:fig6} }   
+   \caption{Gaussian's smoothing effect \label{fig:fig6} }   
 \end{dBox}   
 \end{figure*}
 
@@ -249,7 +249,7 @@ design of the system. Furthermore, a system that is designed using the RGB color
 take advantage of a large number of existing software routines, since this color space has been 
 around for a number of years.  \bigskip
 
-However, RGB is not very efficient when dealing with “real-world” images. All three RGB 
+However, RGB is not very efficient when dealing with "real-world" images. All three RGB 
 components need to be of equal bandwidth to generate any color within the RGB color cube. 
 The result of this is a frame buffer that has the same pixel depth and display resolution for each RGB component. In addition, processing an image in the RGB color space is usually not the 
 most efficient method. For example, to modify the intensity or color of a given pixel, the three 
@@ -272,7 +272,7 @@ to uint8 data. For uint8 images, the data range for Y is [16, 235], and the rang
 (nonimage) information can be included in a video stream. From YCbCr we apply a threshold 
 on this color space to convert the image to the grayscale image.\bigskip
 
-The resulting conversion, based on a threshold, may result in a noise that we don’t desire them 
+The resulting conversion, based on a threshold, may result in a noise that we don't desire them 
 to exist. This noise is totally hazard to the further processing of the image. Which means that 
 we need another smoothing step. This time the smoothing requires us to preserve certain details 
 in the image, which are the edges of our items of interest. Consequently, we need a conservative 
@@ -489,8 +489,8 @@ The Whole case and the voting determination process is explained bye the flow ch
 % \end{figure*}
 
 % \paragraph{$2^{nd}$ Case: Partially Background}\index{Grid Voting}
-% Different from the first case, the image’s grid, in this one, encounters the presence of two kinds of pixels; background and foreground. Check examples in Figure \ref{fig:vote_cases_d}.
-% In this case, the voting is determined directly, without traversing, if the first pixel in the grid is a foreground pixel. However there could be a background pixels in the upcoming parts of the grid but we don’t need to traverse for the rest of pixels, as the voting immediately turns to “1” once we find this white pixel. Otherwise, if the first pixel is background pixel, hence, we begin in the same way as the first case until we hit the presence of a foreground pixel then the traversing is terminated and the vote of the whole grid turns to “1”. If no foreground pixels detected, then the voting remains “0” as in the first case. The grid that can be seen as an edge grid is the one that can be described via this case. The traversing stops at the yellow points which explains the variety of this case.
+% Different from the first case, the image's grid, in this one, encounters the presence of two kinds of pixels; background and foreground. Check examples in Figure \ref{fig:vote_cases_d}.
+% In this case, the voting is determined directly, without traversing, if the first pixel in the grid is a foreground pixel. However there could be a background pixels in the upcoming parts of the grid but we don't need to traverse for the rest of pixels, as the voting immediately turns to "1" once we find this white pixel. Otherwise, if the first pixel is background pixel, hence, we begin in the same way as the first case until we hit the presence of a foreground pixel then the traversing is terminated and the vote of the whole grid turns to "1". If no foreground pixels detected, then the voting remains "0" as in the first case. The grid that can be seen as an edge grid is the one that can be described via this case. The traversing stops at the yellow points which explains the variety of this case.
 % All these sub-cases are shown in Figure \ref{fig:vote_cases_d} (b).\bigskip
 % \paragraph{$3^{rd}$ Case: Totally Foreground}\index{Grid Voting}
 % There is no much difference between this case and the previous one. In both cases, we encounter the presence of foreground pixels but this case can be considered a special case from the previous case since we have no background pixels. Which means that the grid is totally foreground. This can be interpreted that the grid is not an edge grid, as it has nothing from the background. As show in Figure \ref{fig:vote_cases_d}(c).
@@ -512,7 +512,7 @@ The Whole case and the voting determination process is explained bye the flow ch
 % \bigskip
 
 
-The griding approximation is acting as if we let group of pixels decides rather than pixel by pixel. On the one hand, this counts best for the processing performance, much better, but on the other hand, that doesn’t sound promising for the accuracy. To illustrate this clearly let us consider and talk about the following example if we choose the griding to be only 2*2 grids. At this case, we may have the binary shape of the hand, in any form. While detection, it will always results in a just four grids and all of them are voted to be 1. Another case, if we used 5*5 grids. This results in a completely different voting result. Furthermore, if we used 10*10 grids, the resulting voting is presented in the Figure \ref{fig:bin_sizes} (a,b,c)
+The griding approximation is acting as if we let group of pixels decides rather than pixel by pixel. On the one hand, this counts best for the processing performance, much better, but on the other hand, that doesn't sound promising for the accuracy. To illustrate this clearly let us consider and talk about the following example if we choose the griding to be only 2*2 grids. At this case, we may have the binary shape of the hand, in any form. While detection, it will always results in a just four grids and all of them are voted to be 1. Another case, if we used 5*5 grids. This results in a completely different voting result. Furthermore, if we used 10*10 grids, the resulting voting is presented in the Figure \ref{fig:bin_sizes} (a,b,c)
 \begin{figure}[h]
 \begin{dBox}
 \centering
@@ -557,7 +557,7 @@ The following table shows the effect of The grid size on accuracy and running ti
 
 % The previous figures also assert what we were saying about the indispensability of noise elimination. Since, if we got one white noisy spot in the image it will significantly affect the resulting matrix and affect all that is following this step.
 % \subsubsection{Flatting The Votes}\index{Algorithm Two: Binary Representation}
-After each gird’s voting is determined, now we get a matrix of 0s and 1s. This matrix represents the feature array which will be passed to the classifier either for training/evaluating.
+After each gird's voting is determined, now we get a matrix of 0s and 1s. This matrix represents the feature array which will be passed to the classifier either for training/evaluating.
 
 We get to detail how the classifiers we used to evaluate and test our algorithm work in the classification chapter.
 
@@ -662,7 +662,7 @@ We have calculated the local orientation using image gradients, represented by h
 Our histogram of orientation is composed of 36 bins, which means that this feature is described via 36 values.
 \bigskip
 \subsubsection{Radial Signature}\index{Algorithm One: Predefined Features Extraction}
-A simple method to assess the gesture would be to measure the distance from the hand centroid to the edges of the hand along a number of equally spaced radials \cite{feature4} around a circle. This would provide information on the general “shape” of the gesture that could be easily rotated to account for hand yaw (since any radial could be used as datum).
+A simple method to assess the gesture would be to measure the distance from the hand centroid to the edges of the hand along a number of equally spaced radials \cite{feature4} around a circle. This would provide information on the general "shape" of the gesture that could be easily rotated to account for hand yaw (since any radial could be used as datum).
 \bigskip
 Figure \ref{fig:radial_sig} (a) shows a gesture with example radials (simplified).
 However, a problem (as shown in Figure \ref{fig:radial_sig} (a) ) is how to measure when the radial crosses a gap between fingers or between the palm and a finger. To remedy this it was decided to count the total number of skin pixels along a given radial. This is shown in Figure \ref{fig:radial_sig} (b). All of the radial measurements could then be scaled so that the longest radial was of constant length. By doing this, any alteration in the hand camera distance would not affect the radial length signature generated.
@@ -725,7 +725,7 @@ locations are refined by eliminating points of low contrast. An orientation is t
 each keypoint based on local image features. Finally, a local feature descriptor is computed at 
 each keypoint. This descriptor is based on the local image gradient transformed according to the 
 orientation of the keypoint for providing orientation invariance. The size of the feature vector 
-depends on the number of histograms and the number of bins in each histogram. In Lowe’s 
+depends on the number of histograms and the number of bins in each histogram. In Lowe's 
 original implementation\cite{sift} a 4-by-4 patch of histograms with 8 bins each is used, 
 generating a 128-dimensional feature vector. See Figure \ref{fig:sift_example} for example of extracted features. Each features is descripted using 1D array of numbers. 
 
@@ -1035,7 +1035,7 @@ From Lucas-Kanade Algorithm we get an output as 2D array. This 2D array contains
 
 From Lucas-Kanade Algorithm we get an output as 2D array. This 2D array contains the new positions for the detected feature point as tracked. Given that we already have the original indices of these feature points. We can get the difference between the coordinates of the new positions and the old ones.\bigskip
 
-To decide that the hand has moved, the difference between the new position and the new one must exceed a given threshold. If the hand even slightly moved and the difference is less than the threshold it is considered static until the movement exceeds the threshold then the detection starts. This threshold is applied to the vertical and horizontal motion components for ever feature point. If the x or the horizontal motion difference exceeded the threshold then the hand object moved horizontally. The same applies to y or the vertical component. If both differences at the x and y components didn’t exceed the threshold, then this feature points hadn’t move.\bigskip
+To decide that the hand has moved, the difference between the new position and the new one must exceed a given threshold. If the hand even slightly moved and the difference is less than the threshold it is considered static until the movement exceeds the threshold then the detection starts. This threshold is applied to the vertical and horizontal motion components for ever feature point. If the x or the horizontal motion difference exceeded the threshold then the hand object moved horizontally. The same applies to y or the vertical component. If both differences at the x and y components didn't exceed the threshold, then this feature points hadn't move.\bigskip
 
 
 The following flowchart explains what happens at each feature point, where $I(x,y)$ is the original indices for a feature point and $I'(x',y')$ the new indices in the new image after the movement. \bigskip
