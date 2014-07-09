@@ -293,7 +293,7 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 \section{Performance Evaluation} \index{Performance Evaluation}
 	We have used Data Set of Computer Laboratory, University of Cambridge, United Kingdom which is used at Robust real-time pupil tracking in highly off-axis images to test performance. \cite{swirski} \\
 	These Data Set contains video frames as individual images, and a text file describing the pupil ellipse in selected frames. The format of each line in text file is $<$frame \#$>$ $| <x> <y> <a> <b> < \theta >$, such that $ x , y$ represents the pupil center in frame\# , $ a, b$ represents the ellipse major radius and minor radius  values and $\theta$ represents angle between the major axis and the x-axis in radians. Total number of frames is 940 frame. \\
-	Finally after Testing our implementation on this Data Set, we have make a comparison between our results and the original pupil center location. So we found the Average error = 1.545478. You Can see the 	Error graph in Figure \ref{fig:ErrorGraph}.\cite{pupil}
+	Finally after Testing our implementation on this Data Set, we have make a comparison between our results and the original pupil center location. You Can see the Error graph in Figure \ref{fig:ErrorGraph}.\cite{pupil}
 		
 
 \begin{figure*}[]
@@ -301,10 +301,10 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 \centering
   \mbox{
 	    \subfigure[]{
-	          \includegraphics[width=.80\textwidth]{./Pictures/pupil/ErrorGraph.png}
+	          \includegraphics[width=.80\textwidth]{./Pictures/pupil/error_graph.png}
         }
    }
-   \caption{Error graph for Pupil algorithm performance test
+   \caption{Error graph for Pupil algorithm performance test.
    \label{fig:ErrorGraph} }   
 \end{dBox}   
 \end{figure*}
