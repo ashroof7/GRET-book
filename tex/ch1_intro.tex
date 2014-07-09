@@ -9,7 +9,37 @@ The deaf people always use the sign language to interact with the things around 
 
 In general our application can make the interaction with the computer or any mobile device becomes easier, Even if the users can have no disabilities. It is very attractive if we use our eye to communicate with the screen or some signs with your hands to move through it, We will have no need for mouse or keyboard or any heavy devices.
 
-\section{Eye Tracking}\index{Eye Tracking}
+\section{Motivation} \index{Motivation}
+The Motivation of our system is that we find that we always need to use mouse and keyboard to interact with computer devices such as PC devices and Laptop Devices. With the development in the technology which appears around us every day, the sizes of such devices become smaller and smaller, so we found that there is a motivation to try to find a way by which we could interact with these small devices without need to use other tools to interact with the devices. Therefore we need to cope with the modern technology. \bigskip
+
+On other hand, we need to facilitate human computer interaction to make it easier to interact with the device. It will be attractive if we interact with computer devices with our senses such as eye or hands without using tools to translate what we want to do with the device. There is a pressing need to find a way to facilitate the communication language between the man and the machine. There is a motivation to discover some way to facilitate HCI in general. \bigskip
+
+We use the mouse to move through the screen which gives some commands to the computer device to translate and then process them. Also we use the keyboard to give the commands to the device. How about using our eye to interact with the screen? So the computer device will understand what we want from our eye movement which is extremely comfortable and usable for our needs. So we found that it is a strong motivation to use Eye Tracking Techniques based on Computer Vision. So the communication language between the user and the device is the eye movement which facilitates HCI. Depending on our hands, we can make some signs with our hands according to the action we want to do then, we detect the gesture which is made by hands and translate it to the specific action which facilitates HCI. So our application tries to use our senses to facilitate the way of interaction between the man and the device. \bigskip
+
+Also, there is a serious motivation for our project which is how to make the people who have some disabilities to interact with the computer device without find any difficulties. If this happens, the person with the disability will find it is so easy to use the computer device and interact with it like any person which can develop his abilities and skills. So the most important motivation is to facilitate human computer interaction for people with some disabilities. \bigskip
+
+Handicapped who are unable to use their hands to touch the mouse and keyboard can interact with computers using their eye only. With eye tracking, we can detect the gaze point on the screen and determine where the person looks at in order to facilitate the handicapped communication. \bigskip
+
+Deaf people always use the sign language to interact with  the things around them, Depending on the gesture recognition technique, It will be very useful for them to interact with the device using some gestures. They may not find difficulty to use mouse or keyboard but, when they find that they can interact with the computer device with their familiar language, this will facilitate their interaction and it could be very attractive for them.
+
+\section{Related Work}\index{Related Work}
+\subsection{Eye Tracking} \index{Eye Tracking}
+Eye tracking is to collect data using either a remote or head-mounted 'eye tracker' connected to a computer. Most generally eye trackers include two common components: a light source and a camera. The light source(usually infra-red) is directed towards the eye. The camera tracks the reflection of the light source along with visible ocular features such as pupil. This data is usually used in estimating gaze of point. \bigskip
+
+There are many different methods for exploring eye tracking data. The most common is to analyze the visual path of one or more participants across an interface such as a computer screen. So, the presence or absence of eye data points in different screen areas can be examined. This type of analysis is used to determine which features are seen, when a particular feature captures attention, how quickly the eye moves, what content is overlooked and virtually any other gaze-related question. \bigskip
+
+Think of all the ways that you will use your eyes today. You might drive a car. You might read a magazine. You might surf the internet or play a video game or complete a training exercise or watch a movie or look at pictures on your mobile device. These are the applications of eye tracking. With very few exceptions, anything with a visual component can be eye tracked. We use our eyes almost constantly, and understanding how we use them has become an extremely important consideration in research and design. \bigskip
+
+Now days, the automotive and medical industries have applied eye tracking technology to make us safer. The fields of advertising, entertainment, packaging and web design have all benefited significantly from studying the visual behaviour of the consumer. Research with special populations has generated exciting breakthroughs in psychology. Every day, as eye tracking is used in creative new ways, the list of applications grows. \bigskip
+
+Today's Eye-tracking algorithms use two main approaches: feature-based and model-based approaches. \bigskip \\
+Feature-based approaches detect and localize image features related to position of the eye. There is an important property among all feature-based algorithm which is criteria (e.g. a threshold) needed to decide when a certain feature is present or not. Usually the determination of the criteria or the threshold left to the user. For example on the feature-based algorithm is Starburst because it depends on the corneal reflection. \bigskip \cite{starburst}
+
+On the other hand, model-based approaches don't explicitly detect features but rather find the best fitting model that is consistent with the image. For example Pupil Detection algorithm is model-based approach. However, model-based approaches require searching a complex parameter space that can be fraught with local minima and thus cannot be used without a good initial guess of the model parameters. The gain in accuracy of a model-based approach is obtained at a significant cost in terms of computational speed and flexibility but it is so promise for real-time performance. \bigskip \cite{starburst}
+
+ 
+
+
 \subsection{Starburst}\index{Starburst}
 Starburst is a robust algorithm for video based eye tracking. We started with implementing Starburst Algorithm. This algorithm is more accurate than pure feature-based approaches yet is significantly less time consuming than pure model-based approaches. A validation study shows that the technique can reliably estimate eye position with an accuracy of approximately one degree of visual angle even in the presence of significant image noise. \bigskip
 
