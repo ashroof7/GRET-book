@@ -13,33 +13,34 @@ scene camera and one infra-red (IR) spectrum eye camera for dark pupil detection
 \section{System Design Objectives}\index{Pupil}
 	Pupil leverages the rapid development cycle and scaling effects of consumer electronics, USB cameras and consumer computing hardware, instead of using custom cameras and computing solutions. \bigskip
 
-Pupil algorithm is open source and strives to build and support a community of eye tracking researchers and developers.
+Pupil algorithm is open source and strives to build and support a community of eye tracking researchers and developers.\cite{pupil}
 
 \section{Cameras} \index{Cameras}
-The scene camera mount and eye camera mount interface geometries are open source. By releasing the mount geometry we automatically document the interface, allowing users to develop their own mounts for cameras of their choice. \bigskip
+The scene camera mount and eye camera mount interface geometries are open source. By releasing the mount geometry we automatically document the interface, allowing users to develop their own mounts for cameras of their choice. \bigskip \cite{pupil}
 
 Pupil uses USB interface digital cameras that comply with the UVC (USB Video Class) standard. The Pupil headset can be used with other software that supports the UVC interface. Pupil can be easily extended to use two eye cameras for binocular set-ups and more scene cameras as desired. 
 
 \subsection{Eye Camera} \index{Eye Camera}
-We use a small and lightweight eye camera to reduce the amount of visual obstruction for the user and keep the headset lightweight. The eye camera can capture at a maximum resolution of 800x600 pixels at 30 Hz. Using an IR mirror ("hot mirror") was considered as  strategy to further reduce visual obstruction. 
+We use a small and lightweight eye camera to reduce the amount of visual obstruction for the user and keep the headset lightweight. The eye camera can capture at a maximum resolution of 800x600 pixels at 30 Hz. Using an IR mirror ("hot mirror") was considered as  strategy to further reduce visual obstruction.
 
 \bigskip
- Pupil uses the "dark pupil" detection method. This Requires the eye camera to capture video within a specific range of the IR spectrum. 
+ Pupil uses the "dark pupil" detection method. This Requires the eye camera to capture video within a specific range of the IR spectrum. \cite{pupil}
+
  
  \subsection{Scene Camera} \index{Eye Camera}
   The scene camera is mounted above the user’s eye aligning the scene camera optics with the user’s eye along a sagittal plane. The scene camera faces outwards to capture a video stream of a portion of the users FOV at 30Hz. The scene camera lens has a 90 degree diagonal FOV. The scene camera is not only high resolution (max resolution 1920x1080 pixels), but also uses a high quality image sensor. This is very
 advantageous for further computer vision and related tasks
-performed in software.
+performed in software. \cite{pupil}
 
 
 \section{Computing Device} \index{Computing Device}
-The Pupil eye tracking algorithm works in conjunction with standard multi-purpose computers: laptop, desktop, or tablet. Designing for user supplied recording and processing hardware introduces a source for compatibility issues and requires more set-up effort for both users and developers. However, enabling the user to pair the headset with their own computing platform makes Pupil a multi-purpose eye tracking and analysis tool. Pupil is deployable for lightweight mobile use as well as more specialized applications like: streaming over networks, geotagging, multi-user synchronization; and computationally intensive applications like real time 3D reconstruction and localization.
+The Pupil eye tracking algorithm works in conjunction with standard multi-purpose computers: laptop, desktop, or tablet. Designing for user supplied recording and processing hardware introduces a source for compatibility issues and requires more set-up effort for both users and developers. However, enabling the user to pair the headset with their own computing platform makes Pupil a multi-purpose eye tracking and analysis tool. Pupil is deployable for lightweight mobile use as well as more specialized applications like: streaming over networks, geotagging, multi-user synchronization; and computationally intensive applications like real time 3D reconstruction and localization. \cite{pupil}
 
 \section{Pupil Detection Algorithm} \index{Pupil Detection Algorithm}
 The pupil detection algorithm locates the dark pupil in the IR illuminated eye camera image. The algorithm does not depend on the corneal reflection, and works with users who wear contact lenses and eyeglasses. \bigskip
 
 The pupil detection algorithm is under constant improvement based on feedback collected through user submitted eye camera videos. Here we provide a description of default pupil detection algorithm.
-\bigskip
+\bigskip \cite{pupil}
 
 \subsection{overview} \index{Pupil Detection Algorithm}
 The eye camera image is converted to gray-scale. The initial region estimation of the pupil is found via the strongest response for a center-surround feature as proposed by Swirski et al. \cite{swirski} within the image. \newline  
@@ -50,7 +51,7 @@ Filter remaining edges to exclude those stemming from spectral reflections. Rema
 
 Candidate pupil ellipses are formed using ellipse fitting \cite{fitzgibbon96} onto a subset of the contours looking for good fits in a least square sense, major radii within a user defined range, and a few additional criteria. \\* 
 
-The results are evaluated based on the ellipse fit of the supporting edges and the ratio of supporting edge length and ellipse circumference (using Ramanujans second approximation \cite{hardy1962collected} ). We call this ratio "confidence". If the best results confidence is above a threshold the algorithm reports this candidate ellipse as the ellipse defining the contour of the pupil. Otherwise the algorithm reports that no pupil was found.\\*
+The results are evaluated based on the ellipse fit of the supporting edges and the ratio of supporting edge length and ellipse circumference (using Ramanujans second approximation \cite{hardy1962collected} ). We call this ratio "confidence". If the best results confidence is above a threshold the algorithm reports this candidate ellipse as the ellipse defining the contour of the pupil. Otherwise the algorithm reports that no pupil was found.\\* 
 
 \begin{figure*}[]
 \begin{dBox}
@@ -61,7 +62,7 @@ The results are evaluated based on the ellipse fit of the supporting edges and t
             \includegraphics[width=1.0\textwidth]{./Pictures/pupil/Visulaization_of_Pupil_algo.png}
         }
    }
-   \caption{Vizualization of pupil detection algorithm. 1) Eye image converted to gray scale, user region of interest (white stroke rectangle), and initial estimation of pupil region (white square and dashed line square.) 2) Canny edge detection (green lines). 3) Define "dark" region as offset from lowest spike in histogram within eye image. 4) Filter edges to exclude spectral reflections(yellow) and not inside "dark" areas (blue). 5) Remaining edges extracted into contours using connected components and split into sub-contours based on curvature criteria (multi colored lines). 6) Candidate pupil ellipses (blue) are formed using ellipse fitting. 7) Final Ellipse fit found through an augmented combinatorial search( finally ellipse with center in red)-supporting edge pixels drawn in white.
+   \caption{Vizualization of pupil detection algorithm. 1) Eye image converted to gray scale, user region of interest (white stroke rectangle), and initial estimation of pupil region (white square and dashed line square.) 2) Canny edge detection (green lines). 3) Define "dark" region as offset from lowest spike in histogram within eye image. 4) Filter edges to exclude spectral reflections(yellow) and not inside "dark" areas (blue). 5) Remaining edges extracted into contours using connected components and split into sub-contours based on curvature criteria (multi colored lines). 6) Candidate pupil ellipses (blue) are formed using ellipse fitting. 7) Final Ellipse fit found through an augmented combinatorial search( finally ellipse with center in red)-supporting edge pixels drawn in white. \cite{pupil}
  \label{fig:Pupil_Performance} }   
 \end{dBox}   
 \end{figure*}
@@ -76,13 +77,14 @@ The results are evaluated based on the ellipse fit of the supporting edges and t
             \includegraphics[width=.80\textwidth]{./Pictures/pupil/comparison.png}
         }
    }
-   \caption{Comparison of pupil detection rate for Pupil’s algorithm, the stock algorithm proposed by Swirski et al., the ITU gaze tracker and Starburst.
+   \caption{Comparison of pupil detection rate for Pupil’s algorithm, the stock algorithm proposed by Swirski et al., the ITU gaze tracker and Starburst.\cite{pupil}
  \label{fig:Pupil_Performance} }   
 \end{dBox}   
 \end{figure*}
 
 Figure \ref{fig:Pupil_Performance} shows a performance comparison between Pupil’s pupil detection algorithm, the stock algorithm proposed by Swirski et al., the ITU gaze tracker and Starburst on the benchmark dataset by Swirski et al. \cite{swirski}. As error measure we used the Hausdorff distance between the detected and hand-labeled pupil ellipses \cite{swirski}. We additionally conducted a test excluding the dataset p1-right, that contains eye images recorded at the most extreme angles.
-As can be seen from the Figure, Pupil without p1-right compares favourably to all other approaches. With an error threshold of 2 pixels Pupil achieves a detection rate of 80\%; at 5 pixels error detection rate increases to 90\%
+As can be seen from the Figure, Pupil without p1-right compares favourably to all other approaches. With an error threshold of 2 pixels Pupil achieves a detection rate of 80\%; at 5 pixels error detection rate increases to 90\% \cite{pupil}
+
 
 \begin{figure*}[]
 \begin{dBox}
@@ -93,7 +95,7 @@ As can be seen from the Figure, Pupil without p1-right compares favourably to al
             \includegraphics[width=.80\textwidth]{./Pictures/pupil/initial_estimation_of_pupil.png}
         }
    }
-   \caption{ User region of interest (white stroke rectangle), and initial estimation of pupil region (white square and dashed line square.)
+   \caption{ User region of interest (white stroke rectangle), and initial estimation of pupil region (white square and dashed line square.)\cite{pupil}
  \label{fig:Pupil Region} }   
 \end{dBox}   
 \end{figure*}
@@ -107,7 +109,7 @@ As can be seen from the Figure, Pupil without p1-right compares favourably to al
             \includegraphics[width=.80\textwidth]{./Pictures/pupil/estimation_pupil_region.png}
         }
    }
-   \caption{ To find the approximate pupil region, the eye image is convolved with a Haar-like centre surround feature of radius r. The pupil region is centred on the location of the maximal response over all pixels and radii
+   \caption{ To find the approximate pupil region, the eye image is convolved with a Haar-like centre surround feature of radius r. The pupil region is centred on the location of the maximal response over all pixels and radii. \cite{pupil}
  \label{fig:EstimationPupilFig} }   
 \end{dBox}   
 \end{figure*}
@@ -122,7 +124,7 @@ As can be seen from the Figure, Pupil without p1-right compares favourably to al
             \includegraphics[width=.40\textwidth]{./Pictures/pupil/integral_image.png}
         }
    }
-   \caption{ To find the approximate pupil region, the eye image is convolved with a Haar-like centre surround feature of radius r. The pupil region is centred on the location of the maximal response over all pixels and radii
+   \caption{ To find the approximate pupil region, the eye image is convolved with a Haar-like centre surround feature of radius r. The pupil region is centred on the location of the maximal response over all pixels and radii. \cite{ViolaAndJones2001}
  \label{fig:IntegralFig} }   
 \end{dBox}   
 \end{figure*}
@@ -179,7 +181,7 @@ Input and Output of this module is shown in Figure \ref{fig:Initial_Estimation_O
 	            \includegraphics[width=.40\textwidth]{./Pictures/pupil/histogramOnDarkRegion.png}
         }
    }
-   \caption{After Computing Histogram to get Spikes. 
+   \caption{After Computing Histogram to get Spikes. \cite{pupil}
    \label{fig:HistogramOnEyeImage} }   
 \end{dBox}   
 \end{figure*}
@@ -197,7 +199,7 @@ Input and Output of this module is shown in Figure \ref{fig:Initial_Estimation_O
         }
 
    }
-   \caption{After Applying Morphological operations(Closing operations). 
+   \caption{After Applying Morphological operations(Closing operations).\cite{pupil} 
    \label{fig:DarkImageInBlue} }   
 \end{dBox}   
 \end{figure*}
@@ -257,7 +259,7 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 	          \includegraphics[width=.30\textwidth]{./Pictures/pupil/contours.png}
         }
    }
-   \caption{Final Result of Extracting Contour module.
+   \caption{Final Result of Extracting Contour module. \cite{pupil}
    \label{fig:Contours} }   
 \end{dBox}   
 \end{figure*}
@@ -276,7 +278,7 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 	          \includegraphics[width=.30\textwidth]{./Pictures/pupil/final_ellipse.png}
         }
    }
-   \caption{Final Result of Ellipse Fitting module.
+   \caption{Final Result of Ellipse Fitting module.\cite{pupil}
    \label{fig:EllipseFit} }   
 \end{dBox}   
 \end{figure*}
@@ -285,13 +287,13 @@ Finally we get the ROI as a binary image include only the Dark Region which repr
 \subsection{Ellipse Fitting} \index{Pupil Detection Algorithm}
 	Finally we should estimate the best ellipse that surrounds the Pupil by fitting an ellipse found through an augmented combinatorial search. \cite{fitzgibbon96} \bigskip
 	
-	Candidate pupil ellipses are formed using ellipse fitting onto a subset of the contours looking for good fits in a least square sense, major radii within a user defined range and a few additional criteria. An augmented combinatorial search looks for contours that can be added as support to the candidate ellipses. The results are evaluated based on the ellipse fit of the supporting edges and the ratio of supporting edge length and ellipse circumference. We call this ratio “ confidence ”. If the best results confidence is above a threshold the algorithm reports this candidate ellipse as the ellipse defining the contour of the pupil as shown in Figure \ref{fig:EllipseFit}. Otherwise the algorithm reports that no pupil was found. \bigskip
-	
+	Candidate pupil ellipses are formed using ellipse fitting onto a subset of the contours looking for good fits in a least square sense, major radii within a user defined range and a few additional criteria. An augmented combinatorial search looks for contours that can be added as support to the candidate ellipses. The results are evaluated based on the ellipse fit of the supporting edges and the ratio of supporting edge length and ellipse circumference. We call this ratio “ confidence ”. If the best results confidence is above a threshold the algorithm reports this candidate ellipse as the ellipse defining the contour of the pupil as shown in Figure \ref{fig:EllipseFit}. Otherwise the algorithm reports that no pupil was found. \bigskip \cite{pupil}
+
 	
 \section{Performance Evaluation} \index{Performance Evaluation}
 	We have used Data Set of Computer Laboratory, University of Cambridge, United Kingdom which is used at Robust real-time pupil tracking in highly off-axis images to test performance. \cite{swirski} \\
 	These Data Set contains video frames as individual images, and a text file describing the pupil ellipse in selected frames. The format of each line in text file is $<$frame \#$>$ $| <x> <y> <a> <b> < \theta >$, such that $ x , y$ represents the pupil center in frame\# , $ a, b$ represents the ellipse major radius and minor radius  values and $\theta$ represents angle between the major axis and the x-axis in radians. Total number of frames is 940 frame. \\
-	Finally after Testing our implementation on this Data Set, we have make a comparison between our results and the original pupil center location. So we found the Average error = 1.545478. You Can see the 	Error graph in Figure \ref{fig:ErrorGraph}.
+	Finally after Testing our implementation on this Data Set, we have make a comparison between our results and the original pupil center location. So we found the Average error = 1.545478. You Can see the 	Error graph in Figure \ref{fig:ErrorGraph}.\cite{pupil}
 		
 
 \begin{figure*}[]
