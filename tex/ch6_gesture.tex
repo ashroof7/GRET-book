@@ -3,86 +3,6 @@
 %----------------------------------------------------------------------------------------
 \chapterimage{cover_g_1.png} % Chapter heading image} % Chapter heading image
 \chapter{Gesture Recognition}
-% \section{Introduction}\index{Introduction}
-% Traditional human-computer interaction devices such as the keyboard and mouse became ineffective for an effective interaction with the virtual environment applications because the 3D applications need a new interaction device. An efficient human interaction with the modern virtual environments requires more natural devices. Among them the “Hand Gesture” human-computer interaction modality has recently become of major interest. The main objective of gesture recognition research is to build a system which can recognize human gestures and utilize them to control an application. Hand gestures are a collection of movements of the hand and arm that vary from the static posture of pointing at something to the dynamic ones used to communicate with others. Recognizing these hand movements needs modeling them in the
-% spatial and temporal domains. Hand posture is the static structure of the hand while its dynamic movement is called hand gesture and both are particularly crucial for human-computer interaction. The methods used for understanding these structures and movements are among the most classifying researches that still in progress.
-
-
-\bigskip
-
-% \subsection{Static Gestures Related Work} \index{Static Gestures Related Work}
-% Methods for vision based hand gesture recognition fall into two categories: 3D model based methods and appearance model based methods. 3D model may exactly describe hand movement and its shape, but most of them are computational expensive to use. Recently there are some methods to obtain 3D model with 2D appearance model such as ISOSOM and PCA-ICA in \cite{relatedsg1} and \cite{relatedsg2}.
-% \bigskip
-
-% There have been a number of research efforts on appearance based method in recent years. Freeman and Weissman recognized gestures for television control using normalized correlation \cite{relatedsg3}. This technique is efficient but may be sensitive to different users, deformations of the pose and changes in scale, and background. Lars and Lindberg used scale-space color features to recognize hand gestures \cite{relatedsg4}. In their method, gesture recognition method is based on feature detection and user independent while the authors showed real-time application only under uniform backgrounds.
-% \bigskip
-
-% Yikai Fang, Kongqiao Wang proposed "A REAL-TIME HAND GESTURE RECOGNITION METHOD" \cite{relatedsg5} which based their work on Lars's work. They combine fast hand tracking, hand segmentation and multi-scale feature extraction to develop an accurate and robust hand gesture recognition method. It takes advantage of color and motion cues acquired during tracking to implement adaptive hand segmentation.
-% \bigskip
-
-% Our initial work was inspired by a combination of Yikai, Wang's work and a method described in\cite{survey}. We made an initial approach for hand detection and static gesture recognition based on the following procedure:\bigskip
-
-
-% \begin{itemize}
-% \item Detect hand from image based on:
-% \begin{itemize}
-% \item Skin color detection.
-% \item Hand is assumed to be the largest contour.
-% \end{itemize}
-% \item Extract Number of fingers, center of hand.
-% \item Identify gesture based on outputs from previous module using blocks of condition statements based on:
-% \begin{itemize}
-% \item Number of fingers.
-% \item Their angles with respect to x, y axis.
-% \end{itemize}
-% \end{itemize}
-% \bigskip
-
-% This approach has many problems that rise during the implementation:\bigskip
-
-
-% \begin{itemize}
-% \item There is a threshold to determine which points on the contour represent a finger point. That threshold is not reliable and sensitive to:
-% \begin{itemize}
-% \item Orientation of the hand.
-% \item Size of the hand.
-% \end{itemize}
-% \item Then we modified the threshold to be relative to hand size by using an equation that holds the hand width, height, and center point as variables.
-% That modification solves the reliability to hand size problem, but doesn't solve the orientation problem.
-% \item Unreliable if for example we want to distinguish between up gesture made by index finger, or thumb finger.
-% \end{itemize}
-% \bigskip
-
-% To solve the problems with the initial work, we directed our thoughts to machine learning. Where, we extract features from hand and use classification as described in paper \cite{relatedsg6}.
-% \bigskip
-
-% So we defined Three Approaches for static gestures. They differ on features used to represent the gesture:
-% \begin{enumerate}
-% \item Binary Representation Gridding as described in [].
-% \item Predefined Feature Extraction as described in \cite{paper2sT}.
-% \item SIFT And Bag of Features Approach as described in \cite{dardas}.
-% \end{enumerate}
-% \bigskip
-% \subsection{Dynamic Gestures Related Work} \index{Dynamic Gestures Related Work}
-% During our search for already existing approaches for hand gestures, we came across a method 
-% for detecting continuous gestures by hand trajectories. Hidden Markov Model based \cite{hoda} 
-% continuous gesture recognition system is Statistical Model capable of modeling spatio-temporal 
-% time series where the same gesture can differ in shape and duration. This method defines a 
-% gesture as Spatio-Temporal Pattern which may be Static, Dynamic or Both. The objective of 
-% this approach according to the paper explained it, was to Recognize gestures for drawing any 
-% number from (0-9) one or two digits.
-% \bigskip
-
-% This approach assumes that the hand has been detected and its articulated motion is tracked. 
-% Although they have delivered promising results, the robustness of these approaches is dependent 
-% on the prior success of (frequently challenging) hand detection and motion tracking. In addition, 
-% it is both data intensive and computationally difficult to train these models before they can be 
-% applied in recognition. For these reasons, we didn’t pick this method in our system. We need a 
-% relatively fast processing. Meanwhile, we need our method not to have an overhead on the 
-% processor. We deal with relatively small processors with limited capabilities and so, our work has 
-% to comply with this limitation.
-% \bigskip
-
 
 \section{Static Gestures}\index{Static Gestures}
 This chapter includes the work done to detect static gestures. It begins by describing the general idea of segmentation and recognition and then proceeds to the following sections.\bigskip
@@ -358,30 +278,54 @@ filter straddles an edge. For this reason, the median filter is much better at p
 sharp edges than the mean filter.
 \end{itemize}
 
-% Figure \ref{fig:fig8} illustrates the effect of the median filter with many kernel sizes. At our 
-% work,
 We used the median filter with kernel size 5*5. It was most convenient for our work and 
 this size preserved the edges the way we would like it to be. 
-% \begin{figure*}[h]
-% \begin{dBox}
-% \centering
-%   \mbox{
-%       \subfigure[]{
-%             \label{fig:median_1}
-%             \includegraphics[width=.31\textwidth]{./Pictures/gesture/smooth_median_1.jpg}
-%         }
-%         \subfigure[]{
-%           \label{fig:median_2}
-%           \includegraphics[width=.31\textwidth]{./Pictures/gesture/smooth_median_2.jpg}
-%         }
-%         \subfigure[]{
-%             \label{fig:median_3}
-%             \includegraphics[width=.31\textwidth]{./Pictures/gesture/smooth_median_3.jpg}
-%       }
-%   }
-%   \caption{Median Filter \label{fig:fig8} }   
-% \end{dBox}   
-% \end{figure*}
+
+\subsection{Ad-Hoc Approach }\index{Ad-Hoc Approach}
+Our initial work for hand detection and static gesture recognition based on the following procedure:\bigskip
+
+
+\begin{itemize}
+\item Detect hand from image based on:
+\begin{itemize}
+\item Skin color detection.
+\item Hand is assumed to be the largest contour.
+\end{itemize}
+\item Extract Number of fingers, center of hand.
+\item Identify gesture based on outputs from previous module using blocks of condition statements based on:
+\begin{itemize}
+\item Number of fingers.
+\item Their angles with respect to x, y axis.
+\end{itemize}
+\end{itemize}
+\bigskip
+
+This approach has many problems that rise during the implementation:\bigskip
+
+
+\begin{itemize}
+\item There is a threshold to determine which points on the contour represent a finger point. That threshold is not reliable and sensitive to:
+\begin{itemize}
+\item Orientation of the hand.
+\item Size of the hand.
+\end{itemize}
+\item Then we modified the threshold to be relative to hand size by using an equation that holds the hand width, height, and center point as variables.
+That modification solves the reliability to hand size problem, but doesn’t solve the orientation problem.
+\item Unreliable if for example we want to distinguish between up gesture made by index finger, or thumb finger.
+\end{itemize}
+\bigskip
+
+To solve the problems with this approach, we directed our thoughts to machine learning. Where, we extract features from hand and use classification.
+\bigskip
+
+So we defined Three Approaches for static gestures. They differ on features used to represent the gesture:
+\begin{enumerate}
+\item Binary Representation Gridding as described in \cite{paper1sb}.
+\item Predefined Feature Extraction as described in \cite{paper2sT}.
+\item SIFT And Bag of Features Approach as described in\cite{dardas}.
+\end{enumerate}
+\bigskip
+
 
 \subsection{Algorithm one: Gridding}\index{Algorithm one: Gridding}
 
@@ -436,103 +380,6 @@ The Whole case and the voting determination process is explained bye the flow ch
 \end{figure*}
 \bigskip
 
-% The algorithm as described in \cite{paper1sb} is based on describing the image, compare this description, and classify it with the help of the data set after walking through the previously mentioned steps for elaborating the image and extracting the hand in binary representation, an example for a binary image is shown in figure \ref{fig:open_binary}. Standardly, we now have an image that contains two meaningful details only the foreground pixels that should only represent the hand and the background pixels that only represent the background. Generally, to describe an image we need every pixel of image to declare itself, vote whether it is foreground or background, and then we can have the general visualization for the image by traversing ever pixel and checking what it looks like. Therefore, to traverse ever pixel this is a huge processing consumption given that we have many frames coming in it is needless to do a per pixel checking for each image in each frame. \bigskip
-% \begin{figure*}[h]
-% \begin{dBox}
-% \centering
-%   \mbox{
-%       \subfigure[Open Hand]{
-%             \label{fig:binary_op}
-%             \includegraphics[width=.31\textwidth]{./Pictures/gesture/binary_open.jpg}
-%         }
-       
-%         }
-%   \caption{Binary Image Example \label{fig:open_binary} }   
-% \end{dBox}   
-% \end{figure*}
-
-% Our algorithm alleviates such processing burden. The general idea of the algorithm includes this voting but in a less processing way. We need parts of the image to vote on their existence but not pixel by pixel. Given the binary image, it is quite visible that most of the pixels are going to declare themselves a background pixel or, at the best fitting, we find the same number of pixels on foreground and background. However, this is still a waste of processing. The algorithm we are about to detail its idea starts by introducing what can resolve this needless processing waste, the griding. \bigskip
-
-% \subsubsection{Griding The Binary Image}\index{Algorithm Two: Binary Representation}
-% Our Work begins by dividing the binary image we obtained from our elaboration steps into grids as shown in Figure \ref{fig:grid_idea}. The griding is an alternative approach for pixel-by-pixel traversing. In this approximation, we just process n grids, standardly, rather than over thousands and thousands of pixels. This solution is based on the nature of the input image as a binary image. It may not work if the image is not binary image. The binary representation helps us limit any grid value to either 0 or 1 according to the voting technique we use.\bigskip
-% \begin{figure*}[h]
-% \begin{dBox}
-% \centering
-%   \mbox{
-%       \subfigure[]{
-%             \label{fig:binary_op}
-%             \includegraphics[width=.31\textwidth]{./Pictures/gesture/gridding_idea.jpg}
-%         }
-       
-%         }
-%   \caption{Griding Idea Example \label{fig:grid_idea} }   
-% \end{dBox}   
-% \end{figure*}
-
-% \subsubsection{Grid Voting}\index{Algorithm Two: Binary Representation}
-% As the image is a binary image, some grids vote according to one of the following cases in Figure \ref{fig:vote_idea}
-% \bigskip
-
-% \begin{figure*}[h]
-% \begin{dBox}
-% \centering
-%   \mbox{
-%       \subfigure[]{
-%             \label{fig:vote_cases}
-%             \includegraphics[width=.8\textwidth]{./Pictures/gesture/vote_cases.png}
-%         }
-       
-%         }
-%   \caption{ Grids Vote Cases \label{fig:vote_idea} }   
-% \end{dBox}   
-% \end{figure*}
-% \paragraph{$1^{st}$ Case: Totally Background}\index{Grid Voting}
-% In this case, the whole grid is formed by background pixels only as shown in Figure \ref{fig:vote_cases_d} (a), all of them are black pixels. Consequently, the grid votes on its value to be 0. Note that to know this nature about a grid we traverse its pixels. This is not reverting us back to the pixel-by-pixel approach but, here, we just traverse until we encounter the existence of a one white pixel only. This white pixel is always interpreted as a foreground pixel and this moves us to the second case. Therefore, we are not traversing all the pixels this just happens in the grids that contain no foreground pixels but generally, the voting is determined after the traversing is done once we hit the end of the grid and no foreground pixels exist or once we come across a foreground pixel. Which guarantees the running time and the processing time to be kept lower than the former approach that counts the voting of ever pixel.
-% \begin{figure*}[h]
-% \begin{dBox}
-% \centering
-%   \mbox{
-%       \subfigure[Case 1]{
-%             \label{fig:black}
-%             \includegraphics[width=.18\textwidth]{./Pictures/gesture/black_cell.jpg}
-%         }
-%         \subfigure[Case 2]{
-%           \label{fig:partial}
-%           \includegraphics[width=.63\textwidth]{./Pictures/gesture/partially.jpg}
-%         }
-%         \subfigure[Case 3]{
-%           \label{fig:white}
-%           \includegraphics[width=.18\textwidth]{./Pictures/gesture/white_cell.jpg}
-%         }
-%   }
-%   \caption{Grid Shapes \label{fig:vote_cases_d} }   
-% \end{dBox}   
-% \end{figure*}
-
-% \paragraph{$2^{nd}$ Case: Partially Background}\index{Grid Voting}
-% Different from the first case, the image's grid, in this one, encounters the presence of two kinds of pixels; background and foreground. Check examples in Figure \ref{fig:vote_cases_d}.
-% In this case, the voting is determined directly, without traversing, if the first pixel in the grid is a foreground pixel. However there could be a background pixels in the upcoming parts of the grid but we don't need to traverse for the rest of pixels, as the voting immediately turns to "1" once we find this white pixel. Otherwise, if the first pixel is background pixel, hence, we begin in the same way as the first case until we hit the presence of a foreground pixel then the traversing is terminated and the vote of the whole grid turns to "1". If no foreground pixels detected, then the voting remains "0" as in the first case. The grid that can be seen as an edge grid is the one that can be described via this case. The traversing stops at the yellow points which explains the variety of this case.
-% All these sub-cases are shown in Figure \ref{fig:vote_cases_d} (b).\bigskip
-% \paragraph{$3^{rd}$ Case: Totally Foreground}\index{Grid Voting}
-% There is no much difference between this case and the previous one. In both cases, we encounter the presence of foreground pixels but this case can be considered a special case from the previous case since we have no background pixels. Which means that the grid is totally foreground. This can be interpreted that the grid is not an edge grid, as it has nothing from the background. As show in Figure \ref{fig:vote_cases_d}(c).
-
-% The Whole case and the vote determination is explained by the flow chart in Figure \ref{fig:vfc}.
-% \begin{figure*}[]
-% \begin{dBox}
-% \centering
-%   \mbox{
-%       \subfigure[]{
-%             \label{fig:binary_op_alg}
-%             \includegraphics[width=.6\textwidth]{./Pictures/gesture/vfc.png}
-%         }
-       
-%         }
-%   \caption{Voting Flow Chart \label{fig:vfc} }   
-% \end{dBox}   
-% \end{figure*}
-% \bigskip
-
-
 The griding approximation is acting as if we let group of pixels decides rather than pixel by pixel. On the one hand, this counts best for the processing performance, much better, but on the other hand, that doesn't sound promising for the accuracy. To illustrate this clearly let us consider and talk about the following example if we choose the griding to be only 2*2 grids. At this case, we may have the binary shape of the hand, in any form. While detection, it will always results in a just four grids and all of them are voted to be 1. Another case, if we used 5*5 grids. This results in a completely different voting result. Furthermore, if we used 10*10 grids, the resulting voting is presented in the Figure \ref{fig:bin_sizes} (a,b,c)
 \begin{figure}[h]
 \begin{dBox}
@@ -557,7 +404,6 @@ The griding approximation is acting as if we let group of pixels decides rather 
 \bigskip
 
 The pixel-by-pixel detection gives us an optimal description and yet the worst performance but we can approximate our approach to go nearer to this optimal description and yet preserves the performance. This can be achieved if we choose a larger number of grids that can actually be considered as if they are pixels not girds. The larger we keep the number of girds growing to be, the better accuracy we obtain, and the worse the performance gets.\bigskip
-% This keeps happening as long as we increase the number of girds until the grid is actually a pixel, then, the worst performance occur and the best accuracy is obtained.\bigskip
 
 The following table shows the effect of The grid size on accuracy and running time:
 \bigskip
@@ -574,10 +420,7 @@ The following table shows the effect of The grid size on accuracy and running ti
  \hline
 \end{tabular}
 \end{center}
-% The reason why this happens can be see clearly in table (Not Yet). When we increase the grid size, we happen to include more details in each grid that can be described optimally and totally by pixel-by-pixel approach. As long as we make the grids come across edges in a way that griding attempts to preserve the shape of the binary image, our accuracy will rapidly grow. Therefore, to conclude, more girds better accuracy. Every time we enlarge the gird size we check the accuracy and performance until we hit this number of grids that gives acceptable results on each as recorded in table (Not Yet).\bigskip
 
-% The previous figures also assert what we were saying about the indispensability of noise elimination. Since, if we got one white noisy spot in the image it will significantly affect the resulting matrix and affect all that is following this step.
-% \subsubsection{Flatting The Votes}\index{Algorithm Two: Binary Representation}
 After each gird's voting is determined, now we get a matrix of 0s and 1s. This matrix represents the feature array which will be passed to the classifier either for training/evaluating.
 
 We get to detail how the classifiers we used to evaluate and test our algorithm work in the classification chapter.
