@@ -57,60 +57,92 @@ Traditional human-computer interaction devices such as the keyboard and mouse be
 spatial and temporal domains. Hand posture is the static structure of the hand while its dynamic movement is called hand gesture and both are particularly crucial for human-computer interaction. The methods used for understanding these structures and movements are among the most classifying researches that still in progress.
 \bigskip
 
-Methods for vision based hand gesture recognition fall into two categories: 3D model based methods and appearance model based methods. 3D model may exactly describe hand movement and its shape, but most of them are computational expensive to use. Recently there are some methods to obtain 3D model with 2D appearance model such as ISOSOM and PCA-ICA in \cite{relatedsg1} and \cite{relatedsg2}.
+\subsubsection{Static Gesture Recognition}\index{Static Gesture Recognition}
+
+Many approaches have been developed for gesture recognition. Many researchers \cite{yrel7} and \cite{yrel16} have tried with different instruments and equipment to measure hand movements like gloves, sensors or wires, but in these techniques user have to wear the device which doesn’t make sense in practical use. So people thought about a way of contactless gesture recognition that could be considered as a research area in Machine Vision or Computer Vision and which would be as natural as human to human interaction.
 \bigskip
 
-\subsubsection{Static Gesture Recognition}\index{Static Gesture Recognition}
+In \cite{yrel1},\cite{relatedsg1} and \cite{relatedsg2}  approaches are divided based on the method used in it not on how it is treating the image. Approaches are divided into:
+\begin{itemize}
+\item Appearance Based Approaches.
+\item Model Based Approaches.
+\item Soft Computing Approaches.
+\end{itemize}
+
+\bigskip
+
+Appearance Based Approaches:
+\begin{itemize}
+
+\item Based on detecting fingertips to construct the hand.
+\item Skin segmentation using Gaussian Model.
+\item Gaussian filters and freeman's algorithm to detect fingertips.
+\item Kalman filter for finding fingertips and their correct positions in a recursive manner.
+\end{itemize}
+
+\bigskip
+
+Model Based Approaches:
+\begin{itemize}
+\item Using histogram for calculating probability for skin color.
+\item Genetic Algorithms approach.
+\item RGB and HSI color space model based algorithm for skin detection.	
+\end{itemize}
+
+\bigskip
+Soft Computing Approaches:
+\begin{itemize}
+\item Artificial Neural Networks.
+\item Fuzzy Logic.
+\item Genetic Algorithm.
+\end{itemize}
+
+\bigskip
+
+
 
 There have been a number of research efforts on appearance based method in recent years. Freeman and Weissman recognized gestures for television control using normalized correlation \cite{relatedsg3}. This technique is efficient but may be sensitive to different users, deformations of the pose and changes in scale, and background. Lars and Lindberg used scale-space color features to recognize hand gestures \cite{relatedsg4}. In their method, gesture recognition method is based on feature detection and user independent while the authors showed real-time application only under uniform backgrounds.
 \bigskip
 
-Yikai Fang, Kongqiao Wang proposed "A REAL-TIME HAND GESTURE RECOGNITION METHOD" \cite{relatedsg5} which based their work on Lars's work. They combine fast hand tracking, hand segmentation and multi-scale feature extraction to develop an accurate and robust hand gesture recognition method. It takes advantage of color and motion cues acquired during tracking to implement adaptive hand segmentation.
-\bigskip
-
-Our initial work was inspired by a combination of Yikai, Wang's work and a method described in\cite{survey}. We made an initial approach for hand detection and static gesture recognition based on the following procedure:\bigskip
-
-
-\begin{itemize}
-\item Detect hand from image based on:
-\begin{itemize}
-\item Skin color detection.
-\item Hand is assumed to be the largest contour.
-\end{itemize}
-\item Extract Number of fingers, center of hand.
-\item Identify gesture based on outputs from previous module using blocks of condition statements based on:
-\begin{itemize}
-\item Number of fingers.
-\item Their angles with respect to x, y axis.
-\end{itemize}
-\end{itemize}
-\bigskip
-
-This approach has many problems that rise during the implementation:\bigskip
-
-
-\begin{itemize}
-\item There is a threshold to determine which points on the contour represent a finger point. That threshold is not reliable and sensitive to:
-\begin{itemize}
-\item Orientation of the hand.
-\item Size of the hand.
-\end{itemize}
-\item Then we modified the threshold to be relative to hand size by using an equation that holds the hand width, height, and center point as variables.
-That modification solves the reliability to hand size problem, but doesn't solve the orientation problem.
-\item Unreliable if for example we want to distinguish between up gesture made by index finger, or thumb finger.
-\end{itemize}
-\bigskip
-
-To solve the problems with the initial work, we directed our thoughts to machine learning. Where, we extract features from hand and use classification as described in paper \cite{relatedsg6}.
-\bigskip
-
-So we defined Three Approaches for static gestures. They differ on features used to represent the gesture:
+Yikai Fang, Kongqiao Wang proposed "A REAL-TIME HAND GESTURE RECOGNITION METHOD" \cite{relatedsg5} inspired by Lars and Lindberg’s works and HandVu, they present a robust real-time gesture recognition method. The main idea is to segment hand with color and motion cues generated by detection and tracking. Then scale-space feature detection method is used to recognize hand gestures. They partitioned their work into 3 modules as follows:\bigskip
 \begin{enumerate}
-\item Binary Representation Gridding as described in [].
-\item Predefined Feature Extraction as described in \cite{paper2sT}.
-\item SIFT And Bag of Features Approach as described in \cite{dardas}.
+\item  Firstly hand detection with Adaboost is used to trigger tracking and recognition.
+\item Then Adaptive hand segmentation is executed during detection and tracking with motion and color cues.
+\item  Finally, scale-space features detection is applied to find palm-like and finger-like structures. Hand gesture type is determined by palm-finger configuration.
 \end{enumerate}
 \bigskip
+
+Serra, Giuseppe, Lorenzo and Benedetti proposed the paper “Hand Segmentation for Gesture Recognition in EGO-Vision” \cite{relatedsg6}. In their paper, they are interested in exploring the usage of ego-vison devices for cultural heritage domain: the museum experience, for example, could be enhanced by developing innovative human-machine interfaces such as new kinds of self-guided tour that can integrate information from the local environment, Web and social medias.
+They divided their work into two main contributions:
+\bigskip
+
+\begin{itemize}
+\item define a novel hand segmentation algorithm, uses a super-pixel features, and integrate not only illumination invariance but also temporal and spatial consistency improves the state-of-the-art results in the publicly available EDSH dataset.
+\item Develop of a gesture recognition algorithm based on Exemplar SVM technique that, even with a few positive samples, permits to reach competitive results.
+\end{itemize}
+\bigskip
+
+Our Work is summarized by implementing the following approaches for static gestures:
+\begin{itemize}
+\item Gridding Algorithm: A simple idea for Recognizing hand gestures based on their binary representation as described in \cite{paper1sb}.
+\bigskip
+
+\item Predefined Features Extraction: More complicated approach. where, hand gesture is represented by a collection of features that summarize its properties as described in \cite{paper2sT}.
+\begin{enumerate}
+\item Mean an variance of hand grey image.
+\item Hand area and perimeter.
+\item Hand orientation.
+\item Orientation Histogram: Avoid sensitivity to lighting conditions. 
+\item Radial signature.
+\end{enumerate}
+\bigskip
+
+\item Bag-Of-Features: SIFT features are extracted from images, then quantized using K-means clustering in order to be classified later.
+\end{itemize}
+\bigskip
+
+In all static approaches, Classifiers are trained by the extracted Features. 
+We used three classification techniques for evaluation (K-NN, Naive-Bayes, and SVM). Then, we agreed that SVM is most suitable technique for our gestures..
 
 \subsubsection{Dynamic Gestures Recognition} \index{Dynamic Gestures Recognition}
 During our search for already existing approaches for hand gestures, we came across a method 
