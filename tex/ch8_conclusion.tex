@@ -1,0 +1,26 @@
+%----------------------------------------------------------------------------------------
+%	CHAPTER 8 // Conclusion and future work
+%----------------------------------------------------------------------------------------
+\chapterimage{cover_3.jpg} 
+\chapter{Conclusion and Future Work} \index{Conclusion and Future Work}
+
+\section{Conclusion} \index{Conclusion}
+Though this book we developed two HCI techniques that offer a new experience interacting with wearable smart gadgets.  It is largely a software concern; when software, hardware, or a combination of hardware and software, is used to enable use of a computer by a person with a disability or impairment. We believe that that the techniques we discussed in this book will ease the accessibility of wearable computers.
+
+\subsection{Eye Tracking} \index{Eye Tracking}
+Using eye tracking we implemented different algorithms; Starburst \cite{starburst} and Pupil \cite{pupil}. Starburst combines feature-based and model-based approaches to achieve a good trade off between run-time performance and accuracy for dark-pupil infrared illumination. The goal of the algorithm is to extract the location of the pupil center and estimate point of gaze. Pupil maintains the same goal, however pupil is more robust and accurate. A notable remark is that both algorithms locate the dark pupil in the IR illuminated eye camera image. Hence both algorithms can not be used outdoors in daytime due to the ambient infrared illumination. \bigskip
+
+Then we proposed our novel eye-tracking method; MIRT: Morphological Based Iris Tracking. Unlike the previously discussed algorithms, MIRT uses visible imaging to track the iris. We didn't try MIRT in outdoor environments. We expect that the algorithm shall work outdoors after some minor modifications since we use visible spectrum imaging using traditional camera.
+
+
+\subsection{Gesture Recognition} \index{Gesture Recognition}
+... ADD HERE GESTURE CONCLUSION \bigskip
+
+
+\section{Future Work} \index{Future Work}
+A number of improvements to MIRT algorithm can be made. For example the algorithm could be updated to work in outdoor environments. Moreover the algorithm implementation can be produced as a package that offer a standard API so as to be integrated in other applications. Speaking of the head set, we developed our cheap eye-tracking headset. During development we used a custom hand made prototype. We are willing to design the headset such that parts that hold the camera to the frame could be 3D printed. \bigskip
+
+... ADD HERE GESTURE FUTURE WORK \bigskip
+
+
+Last but not least, the whole system can be integrated to work with hand held smart devices. We already began to migrate to Android. No to mention that most wearable computers are Android based (i.e Google glass). In Google I/O 2014, Google released a development kit for wearable gadgets. Our system can be modified to work with the new development kit.
