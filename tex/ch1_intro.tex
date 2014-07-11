@@ -1,11 +1,14 @@
 %----------------------------------------------------------------------------------------
 %	CHAPTER 1 // Introduction
 %----------------------------------------------------------------------------------------
-\chapterimage{cover_3.jpg} 
-\chapter{Introduction}
-Our project is based on two techniques, which are eye tracking and gestures recognition. Using these techniques, we can facilitate Human Computer Interaction. This will be very useful for people who have some disabilities. Handicapped who are unable to use their hands to touch the mouse and keyboard can interact with computers using their eye only. With eye tracking, we can detect the gaze point on the screen and determine where the person looks at in order to facilitate the handicapped communication. The deaf people always use the sign language to interact with the things around them, Depending on the gesture recognition technique, It will be very useful for them to interact with the device using some gestures. \bigskip
+\chapterimage{cover_1.jpg} 
+\chapter{Introduction and Related Work}
+\label{ch_intro}
+\section{Introduction} \index{Introduction}
+In this project we use two different HCI techniques; eye-tracking and gesture recognition. By using these techniques we aim to facilitate human computer interaction and provide a new way of accessibility for people with disabilities. Using Eye-tracking we detect the point of gaze which can be translated in some action. Gesture recognition is used to interpret hand gestures into simple actions like   capturing a photo. Not to mention that gesture recognition can provide a notable advantage to the deaf since it is similar to sign language. In general we the 2 methods we are serving can be used to enhance user experience interacting with computers, specially wearable computers. \bigskip
 
-In general our application can make the interaction with the computer or any mobile device becomes easier, Even if the users can have no disabilities. It is very attractive if we use our eye to communicate with the screen or some signs with your hands to move through it, We will have no need for mouse or keyboard or any heavy devices.
+Through this book we will demonstrate 3 different eye tracking algorithms; Starburst \cite{starburst}, Pupil \cite{pupil}, and Mirt, in chapters \ref{ch_starburst}, \ref{ch_pupil} and \ref{ch_mirt} respectively. Then we discuss the performance of these algorithms in chapter \ref{ch_eye_tr_discussion}. In chapters \ref{ch_gesture} and \ref{ch_gr_eval} we discuss different approaches we use to recognize static and dynamic gestures. Finally we present our conclusion and future work in chapter \ref{ch_conclusion}.
+
 
 \section{Motivation} \index{Motivation}
 It is largely a software concern; when software, hardware, or a combination of hardware and software, is used to enable use of a computer by a person with a disability or impairment. Developing HCI techniques that ease interaction with computer has become a must. Traditional input methods like keyboards, mouses and even touch screens can be stumbling block in the way how persons with disability interact with computers. \bigskip
@@ -62,7 +65,7 @@ touch problem. Complex gaze gestures consist of several simple gaze gestures are
 Eye-movement tracking is a method that is increasingly being employed to study usability issues in HCI contexts. So, it is a technique whereby an individual’s eye movements are measured so that the researcher knows both where a person is looking at any given time and the sequence in which their eyes are shifting from one location to another. Tracking people’s eye movements can help HCI researchers understand visual and display-based information processing and the factors that may impact upon the usability of system
 interfaces. \bigskip
  
-	In this way, eye-movement recordings can provide an objective source of interface-evaluation data that can inform the design of improved interfaces. Eye movements can also be captured and used as control signals to enable people to interact with interfaces directly without the need for mouse or keyboard input, which can be a major advantage for certain populations of users such as disabled individuals. Also Eye tracking can be used in usability testing.\cite{poole2005eye}
+	In this way, eye-movement recordings can provide an objective source of interface-evaluation data that can inform the design of improved interfaces. Eye movements can also be captured and used as control signals to enable people to interact with interfaces directly without the need for mouse or keyboard input, which can be a major advantage for certain populations of users such as disabled individuals. Also Eye tracking can be used in usability testing.\cite{poole2006eye}
 
 \subsection{Gesture Recognition}\index{Gesture Recognition}
 Traditional human-computer interaction devices such as the keyboard and mouse became ineffective for an effective interaction with the virtual environment applications because the 3D applications need a new interaction device. An efficient human interaction with the modern virtual environments requires more natural devices. Among them the “Hand Gesture” human-computer interaction modality has recently become of major interest. The main objective of gesture recognition research is to build a system which can recognize human gestures and utilize them to control an application. Hand gestures are a collection of movements of the hand and arm that vary from the static posture of pointing at something to the dynamic ones used to communicate with others. Recognizing these hand movements needs modeling them in the
@@ -134,7 +137,7 @@ They divided their work into two main contributions:
 \end{itemize}
 \bigskip
 
-Our Work is summarized by implementing the following approaches for static gestures as detailed in chapter \ref{ch6}:
+Our Work is summarized by implementing the following approaches for static gestures as detailed in chapter \ref{ch_gesture}:
 \begin{itemize}
 \item Gridding Algorithm: A simple idea for Recognizing hand gestures based on their binary representation as described in \cite{paper1sb}.
 \bigskip
@@ -154,7 +157,7 @@ Our Work is summarized by implementing the following approaches for static gestu
 \bigskip
 
 In all static approaches, Classifiers are trained by the extracted Features. 
-We used three classification techniques for evaluation (K-NN, Naive-Bayes, and SVM). Then, we agreed that SVM is most suitable technique for our gestures as detailed in chapter \ref{ch7}.
+We used three classification techniques for evaluation (K-NN, Naive-Bayes, and SVM). Then, we agreed that SVM is most suitable technique for our gestures as detailed in chapter \ref{ch_gr_eval}.
 
 \subsubsection{Dynamic Gestures Recognition} \index{Dynamic Gestures Recognition}
 Hidden Markov Models (HMMs) are used in \cite{hoda} for continuous gesture recognition. HMMs are statistical models capable of modeling spatio-temporal patterns where the same gesture can differ in shape and duration.
@@ -166,6 +169,6 @@ This approach assumes that the hand has been detected and its articulated motion
 The approach proposed by Xiaohui, Gang, in \cite{dynamic2} visual representation for hand motions based on the motion divergence fields, which can be normalized to gray-scale images. Salient regions such as Maximum Stable Extremal Regions(MSER) are then detected on the motion divergence maps.From each detected region, a local descriptor is extracted to capture local motion patterns.
 \bigskip
 
- For our HCI purposes, we need relatively less computational methods suitable for applications on devices with limited capabilities. So, in our project, the second approach that estimate motion direction\cite{dynamic2} is adapted for recognizing dynamic gestures as described in chapter \ref{ch6}.
+ For our HCI purposes, we need relatively less computational methods suitable for applications on devices with limited capabilities. So, in our project, the second approach that estimate motion direction\cite{dynamic2} is adapted for recognizing dynamic gestures as described in chapter \ref{ch_gesture}.
  
  

@@ -4,6 +4,7 @@
 %----------------------------------------------------------------------------------------
 \chapterimage{eyes_women_cropped.jpg}
 \chapter{MIRT} \index{MIRT}
+\label{ch_mirt}
 In this chapter we present MIRT: Morphological Based Iris Tracking a novel method for real-time iris detection and tracking. MIRT is a morphological based real-time iris detection algorithm. Morphological operations are simple and fast to compute which reduces the time required to detect the iris. 
 
 Two typed of image processing in eye tracking are used; visible and infrared spectrum imaging. Most available eye tracking approaches like Starburst \cite{starburst} and Pupil \cite{pupil} rely on infrared spectrum imaging. It's known that visible spectrum imaging is more complicated due to the uncontrolled ambient light that is used as a light source which usually contains multiple specular and diffuse components. On the other hand infrared imaging eliminates uncontrolled specular reflection by illuminating the eye with a uniform and controlled infrared light \cite{starburst}. However, infrared imaging requires using special hardware (infrared cameras, infrared lights). MIRT uses visible imaging to track the iris. Not to mention that MIRT can be used outdoors which is not available using infrared based eye-tracking algorithms We also doesn't require any special hardware, we use a low resolution web-cam. Used hardware and head-mounted tracker will be discussed later in this book.\bigskip
