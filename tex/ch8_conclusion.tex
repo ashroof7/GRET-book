@@ -14,13 +14,39 @@ Then we proposed our novel eye-tracking method; MIRT: Morphological Based Iris T
 
 
 \subsection{Gesture Recognition} \index{Gesture Recognition}
-... ADD HERE GESTURE CONCLUSION \bigskip
+We implemented different algorithms for Static Gestures; Gridding, Predefined Feature Extraction, SIFT and Bag Of Words.
+Gridding gives higher accuracy with lower running time. But it has high sensitivity to dataset used for trainning, and light conditions.
+\bigskip
+
+Predefined Feature Extraction describe gesture with many features related to gesture size, its orientation,HOG, and Radial signature. It gives higher accuracy with the advantage of the in-sensitivity to changes in pixel's intensities due to variation in light conditions.
+\bigskip
+
+SIFT and Bag of Feature Method gives a good accuracy, However it is the slowest one in running time compared to the other approaches.
+\bigskip
+
+Hand gesture recognition is a difficult problem and the current work is only a small step towards achieving the results needed in the field.
+The results obtained also proved that the feature selection and data preparation phase is an important one, especially with low resolution
+images. \bigskip
 
 
 \section{Future Work} \index{Future Work}
 A number of improvements to MIRT algorithm can be made. For example the algorithm could be updated to work in outdoor environments. Moreover the algorithm implementation can be produced as a package that offer a standard API so as to be integrated in other applications. Speaking of the head set, we developed our cheap eye-tracking headset. During development we used a custom hand made prototype. We are willing to design the headset such that parts that hold the camera to the frame could be 3D printed. \bigskip
 
-... ADD HERE GESTURE FUTURE WORK \bigskip
+Extending current Bag-Of-Features to dynamic gesture recognition, which is done by extracting local spatio-temporal features from a sequence of frames. Local space-time features have recently become a popular video representation for action recognition as in \cite{future}.
 
+\paragraph{Bag-Of-Features Video Representation}
+\begin{itemize}
+\item Videos are treated as Spatio-Temporal volumes:
+\begin{enumerate}
+\item Salient local regions are extracted using an interest point detector.
+\item The video content in each of the detected regions is described with local features.
+\item Orderless distributions of features are computed for the entire video sample.
+\end{enumerate}
+ \bigskip
+\item 3D-Harris Detector: Salient motion is detected using a multi-scale 3D generalization of the Harris operator.
+\item HOF: Histogram of flow.
+\item HOG: Hostogram of gradient.
+\end{itemize}
+\bigskip
 
 Last but not least, the whole system can be integrated to work with hand held smart devices. We already began to migrate to Android. No to mention that most wearable computers are Android based (i.e Google glass). In Google I/O 2014, Google released a development kit for wearable gadgets. Our system can be modified to work with the new development kit.
